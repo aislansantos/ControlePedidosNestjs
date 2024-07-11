@@ -25,8 +25,8 @@
     "clear:db:test": "npm run typeorm:ts schema:drop -- -d ./typeorm/data-source.ts",
     "migrate:create": "npm run typeorm:ts migration:create -- ./typeorm/migrations/Migrate",
     "migrate:up": "npm run typeorm:ts migration:run -- -d ./typeorm/data-source.ts",
-    "migrate:down": "npm run typeorm:ts migration:revert -- -d ./typeorm/data-source.ts"
-
+    "migrate:down": "npm run typeorm:ts migration:revert -- -d ./typeorm/data-source.ts",
+    "seed": "ts-node ./node_modules/typeorm-extension/bin/cli.cjs seed:run  -d ./typeorm/data-source.ts"
   },
   "dependencies": {
     "@nestjs-modules/mailer": "^2.0.2",
@@ -49,7 +49,8 @@
     "rimraf": "^5.0.7",
     "rxjs": "^7.8.1",
     "swagger-ui-express": "^5.0.1",
-    "typeorm": "^0.3.20"
+    "typeorm": "^0.3.20",
+    "typeorm-extension": "^3.5.1"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",

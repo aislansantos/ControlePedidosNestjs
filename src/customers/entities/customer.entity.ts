@@ -67,7 +67,7 @@ export class CustomerEntity {
 		this.id = customer?.id;
 		this.name = customer?.name;
 		this.email = customer?.email;
-		this.telephone = customer.telephone;
+		this.telephone = customer?.telephone;
 		this.address = customer?.address;
 		this.neighborhood = customer?.neighborhood;
 		this.city = customer?.city;

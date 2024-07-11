@@ -55,7 +55,7 @@ export class CustomerEntity {
 		type: "date",
 		nullable: true
 	})
-	bornAt?: Date;
+	birthDate?: Date;
 
 	@CreateDateColumn()
 	createdAt?: Date;
@@ -72,7 +72,7 @@ export class CustomerEntity {
 		this.neighborhood = customer?.neighborhood;
 		this.city = customer?.city;
 		this.state = customer?.state;
-		this.bornAt = customer?.bornAt;
+		this.birthDate = customer?.birthDate;
 		this.updatedAt = customer?.updatedAt;
 		this.createdAt = customer?.createdAt;
 	}

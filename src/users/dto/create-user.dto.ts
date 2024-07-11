@@ -53,7 +53,7 @@ export class CreateUserDto {
 	 */
 	@IsOptional()
 	@IsDateString()
-	birthAt?: Date;
+	birthDate?: Date;
 
 	/**
 	 * Campo opcional - campo que atribui usuário como Adm ou  User, para as regras de acesso, seguindo RBAC (Role-based access control - controle de acesso baseado em função).

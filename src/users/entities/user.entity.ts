@@ -57,7 +57,7 @@ export class UserEntity {
 		type: "date",
 		nullable: true
 	})
-	birthAt?: Date;
+	birthDate?: Date;
 
 	/**
 	 * Campo opcional - campo que atribui usuário como Adm ou  User, para as regras de acesso, seguindo RBAC (Role-based access control - controle de acesso baseado em função).
@@ -93,7 +93,7 @@ export class UserEntity {
 		this.name = user?.name;
 		this.email = user?.email;
 		this.password = user?.password;
-		this.birthAt = user?.birthAt;
+		this.birthDate = user?.birthDate;
 		this.role = user?.role;
 		this.status = user?.status;
 		this.createdAt = user?.createdAt;

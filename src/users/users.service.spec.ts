@@ -14,7 +14,7 @@ export const userEntityList: UserEntity[] = [
 		id: 1,
 		name: "Aislan Santos",
 		email: "aislan.santos@gmail.com",
-		birthAt: new Date("1985-11-05"),
+		birthDate: new Date("1985-11-05"),
 		password: "$2b$10$q8j4GT14ksUDtG7gx0UQSuyfULF38XFMTwFgCLsg46d4zBjNcjMKG",
 		role: Role.Admin,
 		createdAt: new Date(),
@@ -25,7 +25,7 @@ export const userEntityList: UserEntity[] = [
 		id: 2,
 		name: "Augusto Santos",
 		email: "augusto.santos@gmail.com",
-		birthAt: new Date("1999-01-01"),
+		birthDate: new Date("1999-01-01"),
 		password: "$2b$10$q8j4GT14ksUDtG7gx0UQSuyfULF38XFMTwFgCLsg46d4zBjNcjMKG",
 		role: Role.Admin,
 		createdAt: new Date(),
@@ -37,7 +37,7 @@ export const userEntityList: UserEntity[] = [
 const createUserDTO: CreateUserDto = {
 	name: "Aislan Santos",
 	email: "aislan.santos@gmail.com",
-	birthAt: new Date("1985-11-05"),
+	birthDate: new Date("1985-11-05"),
 	password: "$2b$10$q8j4GT14ksUDtG7gx0UQSuyfULF38XFMTwFgCLsg46d4zBjNcjMKG",
 	role: Role.Admin,
 	status: Status.active
@@ -151,7 +151,7 @@ describe("UsersService", () => {
 			// Arrange
 			const updateUserDto: UpdateUserDto = {
 				name: "Augusto Angelo Santos",
-				birthAt: new Date("2021-11-22"),
+				birthDate: new Date("2021-11-22"),
 				password: "Aa123456"
 			};
 
@@ -160,7 +160,7 @@ describe("UsersService", () => {
 
 			// Assert
 			expect(result).toBe(userEntityList[0]);
-			expect(updateUserDto.birthAt).toBeDefined();
+			expect(updateUserDto.birthDate).toBeDefined();
 			expect(updateUserDto.password).toBeDefined();
 		});
 
@@ -168,7 +168,7 @@ describe("UsersService", () => {
 			// Arrange
 			const updateUserDto: UpdateUserDto = {
 				name: "Augusto Angelo Santos",
-				birthAt: new Date("2021-11-22")
+				birthDate: new Date("2021-11-22")
 			};
 
 			jest.spyOn(userRepository, "update").mockRejectedValueOnce(new Error());

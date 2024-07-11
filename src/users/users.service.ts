@@ -48,8 +48,8 @@ export class UsersService {
 	}
 
 	public async update(id: number, updateUserDto: UpdateUserDto) {
-		if (updateUserDto.birthAt) {
-			updateUserDto.birthAt = new Date(updateUserDto.birthAt);
+		if (updateUserDto.birthDate) {
+			updateUserDto.birthDate = new Date(updateUserDto.birthDate);
 		}
 		if (updateUserDto.password) {
 			const salt = await bcrypt.genSalt();

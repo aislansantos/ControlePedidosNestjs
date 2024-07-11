@@ -29,7 +29,7 @@ const userEntityList: UserEntity[] = [
 		name: "Augusto",
 		email: "augusto.angelo@gmail.com",
 		password: "Aa123456",
-		birthAt: new Date("2021-11-22")
+		birthDate: new Date("2021-11-22")
 	},
 	{
 		id: 2,
@@ -62,7 +62,7 @@ const createUserDTO: CreateUserDto = {
 	name: "Aislan",
 	email: "aislan.santos@gmail.com",
 	password: "Aa123456",
-	birthAt: new Date("1985-11-05"),
+	birthDate: new Date("1985-11-05"),
 	role: Role.Admin,
 	status: Status.active
 };

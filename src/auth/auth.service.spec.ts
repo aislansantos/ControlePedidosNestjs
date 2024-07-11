@@ -41,7 +41,7 @@ export const userEntityList: UserEntity[] = [
 		id: 1,
 		name: "Aislan Santos",
 		email: "aislan.santos@gmail.com",
-		birthAt: new Date("1985-11-05"),
+		birthDate: new Date("1985-11-05"),
 		password: "$2b$10$q8j4GT14ksUDtG7gx0UQSuyfULF38XFMTwFgCLsg46d4zBjNcjMKG",
 		role: Role.Admin,
 		createdAt: new Date(),
@@ -52,7 +52,7 @@ export const userEntityList: UserEntity[] = [
 		id: 2,
 		name: "Augusto Santos",
 		email: "augusto.santos@gmail.com",
-		birthAt: new Date("1999-01-01"),
+		birthDate: new Date("1999-01-01"),
 		password: "$2b$10$q8j4GT14ksUDtG7gx0UQSuyfULF38XFMTwFgCLsg46d4zBjNcjMKG",
 		role: Role.Admin,
 		createdAt: new Date(),
@@ -65,7 +65,7 @@ const updateUserDTO: UpdateUserDto = {
 	name: "Aislan",
 	email: "aislan.santos@gmail.com",
 	password: "Aa123456",
-	birthAt: new Date("1985-11-05"),
+	birthDate: new Date("1985-11-05"),
 	role: Role.Admin,
 	status: Status.active
 };

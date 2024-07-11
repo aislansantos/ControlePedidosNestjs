@@ -26,6 +26,11 @@ export class Migrate1720087922759 implements MigrationInterface {
 						isUnique: true
 					},
 					{
+						name: "telephone",
+						type: "varchar",
+						length: "15"
+					},
+					{
 						name: "address",
 						type: "varchar",
 						length: "127"

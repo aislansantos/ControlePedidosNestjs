@@ -19,6 +19,7 @@ O principal problema proposto pelo app, é fazer um controle simples de compra e
 - Swagger
 - Docker
 - MySql
+- TypeOrm-extensions - ciação de seeds
 
 ## Sobre
 

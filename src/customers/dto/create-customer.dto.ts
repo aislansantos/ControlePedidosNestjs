@@ -25,5 +25,5 @@ export class CreateCustomerDto {
 
 	@IsOptional()
 	@IsDateString()
-	bonrAt: Date;
+	birthDate: Date;
 }

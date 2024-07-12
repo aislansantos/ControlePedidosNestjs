@@ -29,42 +29,42 @@ export class CustomersController {
 	@ApiConsumes("application/x-www-form-urlencoded")
 	@ApiConsumes("application/json")
 	@Post()
-	create(@Body() createCustomerDto: CreateCustomerDto) {
-		return this.customersService.create(createCustomerDto);
+	public async create(@Body() createCustomerDto: CreateCustomerDto) {
+		return await this.customersService.create(createCustomerDto);
 	}
 
 	@Roles(Role.Admin, Role.User)
 	@ApiConsumes("application/x-www-form-urlencoded")
 	@ApiConsumes("application/json")
 	@Get()
-	findAll() {
-		return this.customersService.findAll();
+	public async findAll() {
+		return await this.customersService.findAll();
 	}
 
 	@Roles(Role.Admin, Role.User)
 	@ApiConsumes("application/x-www-form-urlencoded")
 	@ApiConsumes("application/json")
 	@Get(":id")
-	findOne(@Param("id") id: string) {
-		return this.customersService.findOne(+id);
+	public async findOne(@Param("id", ParseIntPipe) id: number) {
+		return await this.customersService.findOne(+id);
 	}
 
 	@Roles(Role.Admin, Role.User)
 	@ApiConsumes("application/x-www-form-urlencoded")
 	@ApiConsumes("application/json")
 	@Patch(":id")
-	update(
+	public async update(
 		@Param("id", ParseIntPipe) id: number,
 		@Body() updateCustomerDto: UpdateCustomerDto
 	) {
-		return this.customersService.update(id, updateCustomerDto);
+		return await this.customersService.update(id, updateCustomerDto);
 	}
 
 	@Roles(Role.Admin, Role.User)
 	@ApiConsumes("application/x-www-form-urlencoded")
 	@ApiConsumes("application/json")
 	@Delete(":id")
-	remove(@Param("id", ParseIntPipe) id: number) {
-		return this.customersService.remove(id);
+	public async remove(@Param("id", ParseIntPipe) id: number) {
+		return await this.customersService.remove(id);
 	}
 }

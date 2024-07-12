@@ -5,14 +5,19 @@ import {
 	Get,
 	Param,
 	Patch,
-	Post
+	Post,
+	UseGuards
 } from "@nestjs/common";
-import { ApiTags } from "@nestjs/swagger";
+import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 import { CustomersService } from "./customers.service";
 import { CreateCustomerDto } from "./dto/create-customer.dto";
 import { UpdateCustomerDto } from "./dto/update-customer.dto";
+import { AuthGuard } from "../guards/auth/auth.guard";
+import { RoleGuard } from "../guards/role/role.guard";
 
 @ApiTags("Customers")
+@UseGuards(AuthGuard, RoleGuard)
+@ApiBearerAuth("JWT-auth")
 @Controller("customers")
 export class CustomersController {
 	constructor(private readonly customersService: CustomersService) {}

@@ -1,6 +1,8 @@
+import { NotFoundException } from "@nestjs/common";
 import { Test, TestingModule } from "@nestjs/testing";
 import { getRepositoryToken } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
+import { Status } from "../utils/enums/active.enum";
 import { CustomersService } from "./customers.service";
 import { CreateCustomerDto } from "./dto/create-customer.dto";
 import { UpdateCustomerDto } from "./dto/update-customer.dto";
@@ -12,6 +14,7 @@ const customerEntityList: CustomerEntity[] = [
 		name: "Teste 1",
 		email: "teste1@teste.com.br",
 		telephone: "(35)99999-9999",
+		status: Status.active,
 		address: "Rua teste ,22",
 		neighborhood: "Res. Belo Horizonte",
 		city: "Varginha",
@@ -25,6 +28,7 @@ const customerEntityList: CustomerEntity[] = [
 		name: "Teste 2",
 		email: "teste2@teste.com.br",
 		telephone: "(35)99999-9999",
+		status: Status.inactive,
 		address: "Rua teste ,22",
 		neighborhood: "",
 		city: "Varginha",
@@ -63,11 +67,14 @@ describe("CustomersService", () => {
 				{
 					provide: getRepositoryToken(CustomerEntity),
 					useValue: {
-						create: jest.fn().mockResolvedValue(createCustomerDTO),
 						findAll: jest.fn().mockResolvedValue(customerEntityList),
+						create: jest.fn().mockResolvedValue(createCustomerDTO),
+						save: jest.fn().mockResolvedValue(customerEntityList[0]),
+						find: jest.fn().mockResolvedValue(customerEntityList),
 						findOne: jest.fn().mockResolvedValue(customerEntityList[0]),
-						update: jest.fn().mockResolvedValue(updateCustomerDTO),
-						remove: jest.fn()
+						update: jest.fn().mockResolvedValue(customerEntityList[0]),
+						delete: jest.fn(),
+						exists: jest.fn().mockResolvedValue(true)
 					}
 				}
 			]
@@ -77,72 +84,105 @@ describe("CustomersService", () => {
 		customerRepository = module.get(getRepositoryToken(CustomerEntity));
 	});
 
-	it("should be defined customerService and", () => {
-		expect(customerService).toBeDefined();
-		expect(customerRepository).toBeDefined();
+	describe("Defined", () => {
+		it("should be defined customerService and customerRepository", () => {
+			expect(customerService).toBeDefined();
+			expect(customerRepository).toBeDefined();
+		});
 	});
 
 	describe("findAll", () => {
-		it("should find all customers", () => {
-			// Arrange
+		it("should found all customers", async () => {
 			// Act
+			const result = await customerService.findAll();
 			// Assert
+			expect(result).toBe(customerEntityList);
+			expect(customerRepository.find).toHaveBeenCalledTimes(1);
 		});
 		it("shold throw an exception - findAll", () => {
 			// Arrange
-			// Act
+			jest.spyOn(customerRepository, "find").mockRejectedValueOnce(new Error());
 			// Assert
+			expect(customerService.findAll()).rejects.toThrow();
 		});
 	});
 
 	describe("findOne", () => {
-		it("should found one customer", () => {
-			// Arrange
+		it("should found one customer", async () => {
 			// Act
+			const result = await customerService.findOne(1);
 			// Assert
+			expect(result).toBe(customerEntityList[0]);
+			expect(customerRepository.findOne).toHaveBeenCalledTimes(1);
 		});
 		it("shold throw an exception - findOne", () => {
 			// Arrange
-			// Act
+			jest.spyOn(customerService, "findOne").mockRejectedValueOnce(new Error());
 			// Assert
+			expect(customerService.findOne(1)).rejects.toThrow();
 		});
 	});
 
 	describe("create", () => {
-		it("should be created one customer", () => {
-			// Arrange
+		it("should be created one customer", async () => {
 			// Act
+			const result = await customerService.create(createCustomerDTO);
 			// Assert
+			expect(result).toBe(customerEntityList[0]);
+			expect(customerRepository.save).toHaveBeenCalledTimes(1);
 		});
 		it("shold throw an exception - create", () => {
-			// Arrange
 			// Act
+			jest.spyOn(customerRepository, "save").mockRejectedValueOnce(new Error());
 			// Assert
+			expect(customerService.create(createCustomerDTO)).rejects.toThrow();
 		});
 	});
+
 	describe("update", () => {
-		it("should be updated one customer", () => {
-			// Arrange
+		it("should be updated one customer", async () => {
 			// Act
+			const result = await customerService.update(2, updateCustomerDTO);
+
 			// Assert
+			expect(result).toEqual(customerEntityList[0]);
+			expect(updateCustomerDTO.telephone).toBeDefined();
+			expect(updateCustomerDTO.birthDate).not.toBeDefined();
 		});
 		it("shold throw an exception - update", () => {
 			// Arrange
-			// Act
+			jest
+				.spyOn(customerRepository, "update")
+				.mockRejectedValueOnce(new Error());
 			// Assert
+			expect(customerService.update(2, updateCustomerDTO)).rejects.toThrow();
 		});
 	});
 
 	describe("delete", () => {
-		it("should be removed one customer", () => {
-			// Arrange
+		it("should be removed one customer", async () => {
 			// Act
+			const result = await customerService.remove(1);
 			// Assert
+			expect(result).toBe(true);
 		});
-		it("shold throw an exception - delete", () => {
+	});
+
+	describe("exists", () => {
+		it("should user not exist", async () => {
 			// Arrange
-			// Act
+			jest.spyOn(customerRepository, "exists").mockResolvedValueOnce(false);
+
 			// Assert
+			try {
+				await customerService.exists(customerEntityList[0].id);
+				fail("Expected NotFoundException to be thrown");
+			} catch (error) {
+				expect(error).toBeInstanceOf(NotFoundException);
+				expect(error.message).toBe(
+					`O cliente com o id ${customerEntityList[0].id} não existe`
+				);
+			}
 		});
 	});
 });

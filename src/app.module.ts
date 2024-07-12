@@ -9,9 +9,9 @@ import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 import { AuthModule } from "./auth/auth.module";
 import { CustomersModule } from "./customers/customers.module";
+import { CustomerEntity } from "./customers/entities/customer.entity";
 import { UserEntity } from "./users/entities/user.entity";
 import { UsersModule } from "./users/users.module";
-import { CustomerEntity } from "./customers/entities/customer.entity";
 
 @Module({
 	/* 
@@ -32,6 +32,7 @@ import { CustomerEntity } from "./customers/entities/customer.entity";
 				limit: 10
 			}
 		]),
+		CustomersModule,
 		forwardRef(() => UsersModule),
 		forwardRef(() => AuthModule),
 		TypeOrmModule.forRoot({
@@ -68,8 +69,7 @@ import { CustomerEntity } from "./customers/entities/customer.entity";
 					strict: true
 				}
 			}
-		}),
-		CustomersModule
+		})
 	],
 	controllers: [AppController],
 	// Aqui protegempos toda a aplicação de tentativas seguida de acesso, podemos colocar como um guard em uma rota especifica

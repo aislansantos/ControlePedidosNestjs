@@ -64,7 +64,7 @@ export class CustomersController {
 	@ApiConsumes("application/x-www-form-urlencoded")
 	@ApiConsumes("application/json")
 	@Delete(":id")
-	remove(@Param("id") id: string) {
-		return this.customersService.remove(+id);
+	remove(@Param("id", ParseIntPipe) id: number) {
+		return this.customersService.remove(id);
 	}
 }

@@ -2,15 +2,16 @@ import {
 	Column,
 	CreateDateColumn,
 	Entity,
-	PrimaryColumn,
+	PrimaryGeneratedColumn,
 	UpdateDateColumn
 } from "typeorm";
+import { Status } from "../../utils/enums/active.enum";
 
 @Entity({
 	name: "customers"
 })
 export class CustomerEntity {
-	@PrimaryColumn({
+	@PrimaryGeneratedColumn({
 		unsigned: true
 	})
 	id?: number;
@@ -21,8 +22,7 @@ export class CustomerEntity {
 	name: string;
 
 	@Column({
-		length: 127,
-		unique: true
+		length: 127
 	})
 	email: string;
 
@@ -30,6 +30,11 @@ export class CustomerEntity {
 		length: 15
 	})
 	telephone?: string;
+
+	@Column({
+		default: Status.active
+	})
+	status?: number;
 
 	@Column({
 		length: 127

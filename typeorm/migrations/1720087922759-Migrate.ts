@@ -31,6 +31,11 @@ export class Migrate1720087922759 implements MigrationInterface {
 						length: "15"
 					},
 					{
+						name: "status",
+						type: "int",
+						default: "1"
+					},
+					{
 						name: "address",
 						type: "varchar",
 						length: "127"

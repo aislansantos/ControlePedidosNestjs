@@ -9,7 +9,7 @@ import { UpdateUserDto } from "./dto/update-user.dto";
 import { UserEntity } from "./entities/user.entity";
 import { UsersService } from "./users.service";
 
-export const userEntityList: UserEntity[] = [
+const userEntityList: UserEntity[] = [
 	{
 		id: 1,
 		name: "Aislan Santos",
@@ -124,6 +124,7 @@ describe("UsersService", () => {
 
 			// Assert
 			expect(result).toEqual(userEntityList[0]);
+			expect(userRepository.save).toHaveBeenCalledTimes(1);
 		});
 
 		it("should throw an exception - create", async () => {
@@ -186,10 +187,12 @@ describe("UsersService", () => {
 		});
 	});
 
-	describe("Exists", () => {
+	describe("exists", () => {
 		it("User not exists", async () => {
+			// Arrange
 			jest.spyOn(userRepository, "exists").mockResolvedValueOnce(false);
 
+			// Assert
 			try {
 				await userService.exists(userEntityList[0].id);
 				fail("Expected NotFoundException to be thrown");

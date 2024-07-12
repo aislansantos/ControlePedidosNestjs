@@ -12,7 +12,7 @@ export class CustomersService {
 		private readonly customerRepository: Repository<CustomerEntity>
 	) {}
 
-	create(createCustomerDto: CreateCustomerDto) {
+	public async create(createCustomerDto: CreateCustomerDto) {
 		return "This action adds a new customer";
 	}
 
@@ -20,15 +20,17 @@ export class CustomersService {
 		return await this.customerRepository.find();
 	}
 
-	findOne(id: number) {
+	public async findOne(id: number) {
 		return `This action returns a #${id} customer`;
 	}
 
-	update(id: number, updateCustomerDto: UpdateCustomerDto) {
+	public async update(id: number, updateCustomerDto: UpdateCustomerDto) {
 		return `This action updates a #${id} customer`;
 	}
 
-	remove(id: number) {
+	public async remove(id: number) {
 		return `This action removes a #${id} customer`;
 	}
+
+	public async exists() {}
 }

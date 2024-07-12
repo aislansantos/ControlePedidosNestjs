@@ -5,6 +5,7 @@ import {
 	PrimaryColumn,
 	UpdateDateColumn
 } from "typeorm";
+import { Status } from "../../utils/enums/active.enum";
 
 @Entity({
 	name: "customers"
@@ -30,6 +31,11 @@ export class CustomerEntity {
 		length: 15
 	})
 	telephone?: string;
+
+	@Column({
+		default: Status.active
+	})
+	status?: number;
 
 	@Column({
 		length: 127

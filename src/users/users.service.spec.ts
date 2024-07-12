@@ -9,7 +9,7 @@ import { UpdateUserDto } from "./dto/update-user.dto";
 import { UserEntity } from "./entities/user.entity";
 import { UsersService } from "./users.service";
 
-export const userEntityList: UserEntity[] = [
+const userEntityList: UserEntity[] = [
 	{
 		id: 1,
 		name: "Aislan Santos",

@@ -14,7 +14,7 @@ import { Role } from "../../utils/enums/role.enum";
 export class UserEntity {
 	/**
 	 * Campo não preenchido - gerado automaticamente pelo sistema e usado para o identificação do usuário em processos internos.
-	 * @example Fulano de Tal
+	 * @example 1
 	 */
 	@PrimaryGeneratedColumn({
 		unsigned: true

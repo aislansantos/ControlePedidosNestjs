@@ -138,7 +138,7 @@ describe("UsersController", () => {
 	});
 
 	describe("create", () => {
-		it("should created a new user successfully", async () => {
+		it("should create a new user successfully", async () => {
 			const result = await userController.create(createUserDTO);
 
 			expect(result).toBe(userEntityList[0]);

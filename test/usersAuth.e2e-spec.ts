@@ -12,7 +12,7 @@ const authRegisterDto: AuthRegisterDto = {
 	password: "Aa123456"
 };
 
-describe("AppController (e2e)", () => {
+describe("userAuth (e2e)", () => {
 	let app: INestApplication;
 	let accessToken: string;
 	let userId: number;
@@ -38,7 +38,7 @@ describe("AppController (e2e)", () => {
 			.expect("Hello World!");
 	});
 
-	it("Registrar um novo usuário", async () => {
+	it("should created a new user", async () => {
 		const response = await request(app.getHttpServer())
 			.post("/auth/register")
 			.send(authRegisterDto);

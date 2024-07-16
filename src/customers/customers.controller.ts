@@ -30,10 +30,14 @@ export class CustomersController {
 	@ApiConsumes("application/json")
 	@Post()
 	public async create(@Body() createCustomerDto: CreateCustomerDto) {
+		const birthDate = new Date(createCustomerDto.birthDate);
+
+		console.log(birthDate);
+
 		return await this.customersService.create(createCustomerDto);
 	}
 
-	@Roles(Role.Admin, Role.User)
+	@Roles(Role.User, Role.Admin)
 	@ApiConsumes("application/x-www-form-urlencoded")
 	@ApiConsumes("application/json")
 	@Get()

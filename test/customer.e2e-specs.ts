@@ -12,7 +12,7 @@ const createCustomerDTO: CreateCustomerDto = {
 	neighborhood: "Res. Belo Horizonte",
 	city: "Varginha",
 	state: "MG",
-	birthDate: new Date("1985-11-05")
+	birthDate: "1985-11-05"
 };
 
 describe("customer (e2e)", () => {

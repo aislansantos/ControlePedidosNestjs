@@ -3,6 +3,7 @@ import { Test, TestingModule } from "@nestjs/testing";
 import * as request from "supertest";
 import { AppModule } from "../src/app.module";
 import { AuthRegisterDto } from "../src/auth/dto/auth-register.dto";
+import { CreateCustomerDto } from "../src/customers/dto/create-customer.dto";
 import { Role } from "../src/utils/enums/role.enum";
 import dataSource from "../typeorm/data-source";
 
@@ -10,6 +11,17 @@ const authRegisterDto: AuthRegisterDto = {
 	name: "Aislan",
 	email: "aislan.santos@gmail.com",
 	password: "Aa123456"
+};
+
+const createCustomerDTO: CreateCustomerDto = {
+	name: "Teste 1",
+	email: "teste1@teste.com.br",
+	telephone: "(35)99999-9999",
+	address: "Rua teste ,22",
+	neighborhood: "Res. Belo Horizonte",
+	city: "Varginha",
+	state: "MG",
+	birthDate: "1985-02-31"
 };
 
 describe("userAuth (e2e)", () => {
@@ -143,5 +155,14 @@ describe("userAuth (e2e)", () => {
 
 		expect(response.statusCode).toBe(200);
 		expect(response.body.length).toBe(2);
+	});
+
+	it("should created a new customer", async () => {
+		const response = await request(app.getHttpServer())
+			.post("/customers")
+			.set("Authorization", `bearer ${accessToken}`)
+			.send(createCustomerDTO);
+
+		expect(response.statusCode).toBe(201);
 	});
 });

@@ -1,5 +1,5 @@
 import {
-	IsDateString,
+	IsDate,
 	IsEmail,
 	IsEnum,
 	IsOptional,
@@ -52,7 +52,7 @@ export class CreateUserDto {
 	 * @example "1990-01-01"
 	 */
 	@IsOptional()
-	@IsDateString()
+	@IsDate()
 	birthDate?: Date;
 
 	/**

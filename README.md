@@ -44,9 +44,14 @@ Depois de fazer a instalação e criar o banco de dados, pode-se usar as funçã
   GET /api/docs
 ```
 
-Exemplo de esquema de DTO swagger:
+- DTO Customer.
+![createCustomerDto](imgsProjeto/CustomerDTOCreate.png)
 
-![createCustomerDto](imgsProjeto/DTOCreate.png)
-
-Exemplo da documentação do schema da entidade Customer
+- Schema da entidade Customer
 ![createCustomerDto](imgsProjeto/CustomerEntity.png)
+
+- Rotas de Crud de Customer.
+![rota de crud customer](imgsProjeto/CustomerRoutes.png)
+
+- Formulário de post do customer configurado no swagger.
+![rota de crud customer](imgsProjeto/CustomerFormTest.png)

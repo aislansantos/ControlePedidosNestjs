@@ -99,7 +99,7 @@ export class CustomerEntity {
 		type: "date",
 		nullable: true
 	})
-	birthDate?: string;
+	birthDate?: Date;
 
 	/**
 	 * Campo não preenchido - gerado automaticamente pelo sistema quando o registro é criado.

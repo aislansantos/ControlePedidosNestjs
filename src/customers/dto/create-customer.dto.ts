@@ -3,9 +3,9 @@ import {
 	IsEnum,
 	IsOptional,
 	IsString,
-	Matches,
-	Validate
+	Matches
 } from "class-validator";
+import { Validate } from "../../utils/decorators/dateValidate.decorator";
 import { Status } from "../../utils/enums/active.enum";
 
 export class CreateCustomerDto {
@@ -72,10 +72,6 @@ export class CreateCustomerDto {
 	 */
 	@IsOptional()
 	@Matches(/^((19|20)[0-9]{2})-(0[0-9]|1[0-2])-([0-2][0-9]|3[0-1])$/)
-	@Validate((value: string) => {
-		const date = new Date(value);
-
-		return date.toISOString().substring(0, 10) === value;
-	})
+	@Validate({ message: "Invalid Date" })
 	birthDate?: string;
 }

@@ -21,7 +21,7 @@ const createCustomerDTO: CreateCustomerDto = {
 	neighborhood: "Res. Belo Horizonte",
 	city: "Varginha",
 	state: "MG",
-	birthDate: "1985-02-31"
+	birthDate: "1985-02-28"
 };
 
 describe("userAuth (e2e)", () => {

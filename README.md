@@ -38,7 +38,12 @@ Instale projeto com npm
 ### Swagger
 
 Toda a documentação sobre endPoint e estrutura de Entities e DTO, estão Localizadas no SWAGGER.
+Depois de fazer a instalação e criar o banco de dados, pode-se usar as função das rotas.
 
 ```http
   GET /api/docs
 ```
+
+Exemplo de esquema de DTO swagger:
+
+![alt text]()

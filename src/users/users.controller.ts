@@ -18,7 +18,7 @@ import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
 import { UsersService } from "./users.service";
 
-@ApiTags("users")
+@ApiTags("Users")
 @UseGuards(AuthGuard, RoleGuard)
 @ApiBearerAuth("JWT-auth")
 @Controller("users")

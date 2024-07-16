@@ -38,7 +38,20 @@ Instale projeto com npm
 ### Swagger
 
 Toda a documentação sobre endPoint e estrutura de Entities e DTO, estão Localizadas no SWAGGER.
+Depois de fazer a instalação e criar o banco de dados, pode-se usar as função das rotas.
 
 ```http
   GET /api/docs
 ```
+
+- DTO Customer.
+![createCustomerDto](imgsProjeto/CustomerDTOCreate.png)
+
+- Schema da entidade Customer
+![createCustomerDto](imgsProjeto/CustomerEntity.png)
+
+- Rotas de Crud de Customer.
+![rota de crud customer](imgsProjeto/CustomerRoutes.png)
+
+- Formulário de post do customer configurado no swagger.
+![rota de crud customer](imgsProjeto/CustomerFormTest.png)

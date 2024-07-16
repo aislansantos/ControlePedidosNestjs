@@ -47,3 +47,6 @@ Depois de fazer a instalação e criar o banco de dados, pode-se usar as funçã
 Exemplo de esquema de DTO swagger:
 
 ![createCustomerDto](imgsProjeto/DTOCreate.png)
+
+Exemplo da documentação do schema da entidade Customer
+![createCustomerDto](imgsProjeto/CustomerEntity.png)

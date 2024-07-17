@@ -148,21 +148,39 @@ describe("userAuth (e2e)", () => {
 	});
 
 	it("Tentando ver a lista de todos os usuários, agora com acesso de ad", async () => {
+		// Act
 		const response = await request(app.getHttpServer())
 			.get("/users")
 			.set("Authorization", `bearer ${accessToken}`)
 			.send();
-
+		// Assert
 		expect(response.statusCode).toBe(200);
 		expect(response.body.length).toBe(2);
 	});
 
-	it("should created a new customer", async () => {
-		const response = await request(app.getHttpServer())
-			.post("/customers")
-			.set("Authorization", `bearer ${accessToken}`)
-			.send(createCustomerDTO);
+	describe("Customer", () => {
+		describe("create", () => {
+			it("should created a new customer", async () => {
+				// Act
+				const response = await request(app.getHttpServer())
+					.post("/customers")
+					.set("Authorization", `bearer ${accessToken}`)
+					.send(createCustomerDTO);
+				// Assert
+				expect(response.statusCode).toBe(201);
+			});
+			it("should not success - create", async () => {
+				// Arrange
+				createCustomerDTO.birthDate = "1985-02-31";
 
-		expect(response.statusCode).toBe(201);
+				// Act
+				const response = await request(app.getHttpServer())
+					.post("/customers")
+					.set("Authorization", `bearer ${accessToken}`)
+					.send(createCustomerDTO);
+				// Assert
+				expect(response.statusCode).toBe(400);
+			});
+		});
 	});
 });

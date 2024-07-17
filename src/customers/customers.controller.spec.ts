@@ -33,7 +33,7 @@ const custometEntityList: CustomerEntity[] = [
 		neighborhood: "Res. Belo Horizonte",
 		city: "Varginha",
 		state: "MG",
-		birthDate: new Date(),
+		birthDate: "1985-02-05",
 		createdAt: new Date(),
 		updatedAt: new Date()
 	},
@@ -47,7 +47,7 @@ const custometEntityList: CustomerEntity[] = [
 		neighborhood: "",
 		city: "Varginha",
 		state: "MG",
-		birthDate: new Date(),
+		birthDate: "1990-01-03",
 		createdAt: new Date(),
 		updatedAt: new Date()
 	}
@@ -61,7 +61,7 @@ const createCustomerDTO: CreateCustomerDto = {
 	neighborhood: "Res. Belo Horizonte",
 	city: "Varginha",
 	state: "MG",
-	birthDate: new Date("1985-11-05")
+	birthDate: "1985-02-05"
 };
 
 const updateCustomerDTO: UpdateCustomerDto = {
@@ -85,7 +85,8 @@ describe("CustomersController", () => {
 						findAll: jest.fn().mockResolvedValue(custometEntityList),
 						findOne: jest.fn().mockResolvedValue(custometEntityList[0]),
 						update: jest.fn().mockResolvedValue(custometEntityList[0]),
-						remove: jest.fn()
+						remove: jest.fn(),
+						save: jest.fn().mockResolvedValue(custometEntityList[0])
 					}
 				}
 			]

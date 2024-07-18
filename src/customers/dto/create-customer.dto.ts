@@ -1,10 +1,4 @@
-import {
-	IsEmail,
-	IsEnum,
-	IsOptional,
-	IsString,
-	Matches
-} from "class-validator";
+import { IsEmail, IsEnum, IsOptional, IsString } from "class-validator";
 import { Validate } from "../../utils/decorators/dateValidate.decorator";
 import { Status } from "../../utils/enums/active.enum";
 
@@ -71,7 +65,6 @@ export class CreateCustomerDto {
 	 * @example "1990-01-01"
 	 */
 	@IsOptional()
-	@Matches(/^((19|20)[0-9]{2})-(0[0-9]|1[0-2])-([0-2][0-9]|3[0-1])$/)
 	@Validate({ message: "Invalid Date" })
 	birthDate?: string;
 }

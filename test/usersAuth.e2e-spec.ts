@@ -1,4 +1,4 @@
-import { INestApplication } from "@nestjs/common";
+import { INestApplication, ValidationPipe } from "@nestjs/common";
 import { Test, TestingModule } from "@nestjs/testing";
 import * as request from "supertest";
 import { AppModule } from "../src/app.module";
@@ -35,6 +35,18 @@ describe("userAuth (e2e)", () => {
 		}).compile();
 
 		app = moduleFixture.createNestApplication();
+
+		// Em testes com class validator temos de usar os pipes da aplicação
+		app.useGlobalPipes(
+			new ValidationPipe({
+				transform: true,
+				whitelist: true,
+				forbidUnknownValues: true,
+				transformOptions: {
+					enableImplicitConversion: true
+				}
+			})
+		);
 		await app.init();
 	});
 
@@ -73,7 +85,7 @@ describe("userAuth (e2e)", () => {
 		accessToken = response.body.accessToken;
 	});
 
-	it("Pegas os dados do usuário logado", async () => {
+	it("Pegar os dados do usuário logado", async () => {
 		const response = await request(app.getHttpServer())
 			.post("/auth/me")
 			.set("Authorization", `bearer ${accessToken}`)
@@ -166,6 +178,7 @@ describe("userAuth (e2e)", () => {
 					.post("/customers")
 					.set("Authorization", `bearer ${accessToken}`)
 					.send(createCustomerDTO);
+
 				// Assert
 				expect(response.statusCode).toBe(201);
 			});
@@ -178,7 +191,30 @@ describe("userAuth (e2e)", () => {
 					.post("/customers")
 					.set("Authorization", `bearer ${accessToken}`)
 					.send(createCustomerDTO);
+
 				// Assert
+				expect(response.statusCode).toBe(400);
+				expect(response.badRequest).toBe(true);
+			});
+		});
+		describe("Read", () => {
+			it("should found all customer", async () => {
+				const response = await request(app.getHttpServer())
+					.get("/customers")
+					.set("Authorization", `bearer ${accessToken}`);
+
+				expect(response.statusCode).toBe(200);
+				expect(response.body.length).toBe(1);
+			});
+			it("should found one customer", async () => {
+				const response = await request(app.getHttpServer())
+					.get("/customers/:id")
+					.set("Authorization", `bearer ${accessToken}`)
+					.send();
+
+				console.log(userId);
+				console.log(response.body);
+
 				expect(response.statusCode).toBe(400);
 			});
 		});

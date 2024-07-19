@@ -14,6 +14,7 @@ export class CustomersService {
 
 	public async create(createCustomerDto: CreateCustomerDto) {
 		const newUser = this.customersRepository.create(createCustomerDto);
+
 		return this.customersRepository.save(newUser);
 	}
 
@@ -29,10 +30,12 @@ export class CustomersService {
 	}
 
 	public async update(id: number, updateCustomerDto: UpdateCustomerDto) {
+		await this.exists(id);
 		return await this.customersRepository.update(id, updateCustomerDto);
 	}
 
 	public async remove(id: number) {
+		await this.exists(id);
 		await this.customersRepository.delete(id);
 		return true;
 	}

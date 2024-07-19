@@ -1,9 +1,10 @@
-import { INestApplication } from "@nestjs/common";
+import { INestApplication, ValidationPipe } from "@nestjs/common";
 import { Test, TestingModule } from "@nestjs/testing";
 import * as request from "supertest";
 import { AppModule } from "../src/app.module";
 import { AuthRegisterDto } from "../src/auth/dto/auth-register.dto";
 import { CreateCustomerDto } from "../src/customers/dto/create-customer.dto";
+import { UpdateCustomerDto } from "../src/customers/dto/update-customer.dto";
 import { Role } from "../src/utils/enums/role.enum";
 import dataSource from "../typeorm/data-source";
 
@@ -21,7 +22,11 @@ const createCustomerDTO: CreateCustomerDto = {
 	neighborhood: "Res. Belo Horizonte",
 	city: "Varginha",
 	state: "MG",
-	birthDate: "1985-02-31"
+	birthDate: "1985-02-28"
+};
+
+const updateCustomerDto: UpdateCustomerDto = {
+	name: "Teste 2"
 };
 
 describe("userAuth (e2e)", () => {
@@ -35,6 +40,18 @@ describe("userAuth (e2e)", () => {
 		}).compile();
 
 		app = moduleFixture.createNestApplication();
+
+		// Em testes com class validators  temos de usar os pipes da aplicação
+		app.useGlobalPipes(
+			new ValidationPipe({
+				transform: true,
+				whitelist: true,
+				forbidUnknownValues: true,
+				transformOptions: {
+					enableImplicitConversion: true
+				}
+			})
+		);
 		await app.init();
 	});
 
@@ -59,7 +76,7 @@ describe("userAuth (e2e)", () => {
 		expect(typeof response.body.accessToken).toEqual("string");
 	});
 
-	it("Tentar logar com o novo usuário", async () => {
+	it("should tried loggin whith new user", async () => {
 		const response = await request(app.getHttpServer())
 			.post("/auth/login")
 			.send({
@@ -73,7 +90,7 @@ describe("userAuth (e2e)", () => {
 		accessToken = response.body.accessToken;
 	});
 
-	it("Pegas os dados do usuário logado", async () => {
+	it("Pegar os dados do usuário logado", async () => {
 		const response = await request(app.getHttpServer())
 			.post("/auth/me")
 			.set("Authorization", `bearer ${accessToken}`)
@@ -148,21 +165,106 @@ describe("userAuth (e2e)", () => {
 	});
 
 	it("Tentando ver a lista de todos os usuários, agora com acesso de ad", async () => {
+		// Act
 		const response = await request(app.getHttpServer())
 			.get("/users")
 			.set("Authorization", `bearer ${accessToken}`)
 			.send();
-
+		// Assert
 		expect(response.statusCode).toBe(200);
 		expect(response.body.length).toBe(2);
 	});
 
-	it("should created a new customer", async () => {
-		const response = await request(app.getHttpServer())
-			.post("/customers")
-			.set("Authorization", `bearer ${accessToken}`)
-			.send(createCustomerDTO);
+	describe("Customer", () => {
+		describe("create", () => {
+			it("should created a new customer", async () => {
+				// Act
+				const response = await request(app.getHttpServer())
+					.post("/customers")
+					.set("Authorization", `bearer ${accessToken}`)
+					.send(createCustomerDTO);
 
-		expect(response.statusCode).toBe(201);
+				// Assert
+				expect(response.statusCode).toBe(201);
+			});
+			it("should not success - create", async () => {
+				// Arrange
+				createCustomerDTO.birthDate = "1985-02-31";
+
+				// Act
+				const response = await request(app.getHttpServer())
+					.post("/customers")
+					.set("Authorization", `bearer ${accessToken}`)
+					.send(createCustomerDTO);
+
+				// Assert
+				expect(response.statusCode).toBe(400);
+				expect(response.badRequest).toBe(true);
+			});
+		});
+		describe("Read", () => {
+			it("should found all customer", async () => {
+				const response = await request(app.getHttpServer())
+					.get("/customers")
+					.set("Authorization", `bearer ${accessToken}`);
+
+				expect(response.statusCode).toBe(200);
+				expect(response.body.length).toBe(1);
+			});
+			it("should found one customer", async () => {
+				const response = await request(app.getHttpServer())
+					.get("/customers/1")
+					.set("Authorization", `bearer ${accessToken}`);
+
+				expect(response.statusCode).toBe(200);
+			});
+			it("should not found one customer", async () => {
+				const response = await request(app.getHttpServer())
+					.get("/customers/2")
+					.set("Authorization", `bearer ${accessToken}`);
+
+				expect(response.statusCode).toBe(404);
+				expect(response.clientError).toBe(true);
+			});
+		});
+		describe("Update", () => {
+			it("should updated one register customer", async () => {
+				const response = await request(app.getHttpServer())
+					.patch("/customers/1")
+					.set("Authorization", `bearer ${accessToken}`)
+					.send(updateCustomerDto);
+
+				console.log(response.clientError);
+
+				expect(response.statusCode).toBe(200);
+			});
+			it("should not updated one register customer", async () => {
+				const response = await request(app.getHttpServer())
+					.patch("/customers/5")
+					.set("Authorization", `bearer ${accessToken}`)
+					.send(updateCustomerDto);
+
+				console.log(response.clientError);
+
+				expect(response.statusCode).toBe(404);
+				expect(response.clientError).toBe(true);
+			});
+		});
+		describe("Delete", () => {
+			it("should deleted one user", async () => {
+				const response = await request(app.getHttpServer())
+					.delete("/customers/1")
+					.set("Authorization", `bearer ${accessToken}`);
+
+				expect(response.statusCode).toBe(200);
+			});
+			it("should not deleted one user", async () => {
+				const response = await request(app.getHttpServer())
+					.delete("/customers/5")
+					.set("Authorization", `bearer ${accessToken}`);
+
+				expect(response.statusCode).toBe(404);
+			});
+		});
 	});
 });

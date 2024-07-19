@@ -30,10 +30,6 @@ export class CustomersController {
 	@ApiConsumes("application/json")
 	@Post()
 	public async create(@Body() createCustomerDto: CreateCustomerDto) {
-		const birthDate = new Date(createCustomerDto.birthDate);
-
-		console.log(birthDate);
-
 		return await this.customersService.create(createCustomerDto);
 	}
 

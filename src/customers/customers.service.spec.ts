@@ -19,7 +19,7 @@ const customerEntityList: CustomerEntity[] = [
 		neighborhood: "Res. Belo Horizonte",
 		city: "Varginha",
 		state: "MG",
-		birthDate: new Date(),
+		birthDate: "1985-02-05",
 		createdAt: new Date(),
 		updatedAt: new Date()
 	},
@@ -33,7 +33,7 @@ const customerEntityList: CustomerEntity[] = [
 		neighborhood: "",
 		city: "Varginha",
 		state: "MG",
-		birthDate: new Date(),
+		birthDate: "1990-01-11",
 		createdAt: new Date(),
 		updatedAt: new Date()
 	}
@@ -47,7 +47,7 @@ const createCustomerDTO: CreateCustomerDto = {
 	neighborhood: "Res. Belo Horizonte",
 	city: "Varginha",
 	state: "MG",
-	birthDate: new Date("1985-11-05")
+	birthDate: "1985-11-05"
 };
 
 const updateCustomerDTO: UpdateCustomerDto = {

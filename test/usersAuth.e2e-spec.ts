@@ -4,6 +4,7 @@ import * as request from "supertest";
 import { AppModule } from "../src/app.module";
 import { AuthRegisterDto } from "../src/auth/dto/auth-register.dto";
 import { CreateCustomerDto } from "../src/customers/dto/create-customer.dto";
+import { UpdateCustomerDto } from "../src/customers/dto/update-customer.dto";
 import { Role } from "../src/utils/enums/role.enum";
 import dataSource from "../typeorm/data-source";
 
@@ -24,6 +25,10 @@ const createCustomerDTO: CreateCustomerDto = {
 	birthDate: "1985-02-28"
 };
 
+const updateCustomerDto: UpdateCustomerDto = {
+	name: "Teste 2"
+};
+
 describe("userAuth (e2e)", () => {
 	let app: INestApplication;
 	let accessToken: string;
@@ -36,7 +41,7 @@ describe("userAuth (e2e)", () => {
 
 		app = moduleFixture.createNestApplication();
 
-		// Em testes com class validator temos de usar os pipes da aplicação
+		// Em testes com class validators  temos de usar os pipes da aplicação
 		app.useGlobalPipes(
 			new ValidationPipe({
 				transform: true,
@@ -71,7 +76,7 @@ describe("userAuth (e2e)", () => {
 		expect(typeof response.body.accessToken).toEqual("string");
 	});
 
-	it("Tentar logar com o novo usuário", async () => {
+	it("should tried loggin whith new user", async () => {
 		const response = await request(app.getHttpServer())
 			.post("/auth/login")
 			.send({
@@ -208,14 +213,57 @@ describe("userAuth (e2e)", () => {
 			});
 			it("should found one customer", async () => {
 				const response = await request(app.getHttpServer())
-					.get("/customers/:id")
+					.get("/customers/1")
+					.set("Authorization", `bearer ${accessToken}`);
+
+				expect(response.statusCode).toBe(200);
+			});
+			it("should not found one customer", async () => {
+				const response = await request(app.getHttpServer())
+					.get("/customers/2")
+					.set("Authorization", `bearer ${accessToken}`);
+
+				expect(response.statusCode).toBe(404);
+				expect(response.clientError).toBe(true);
+			});
+		});
+		describe("Update", () => {
+			it("should updated one register customer", async () => {
+				const response = await request(app.getHttpServer())
+					.patch("/customers/1")
 					.set("Authorization", `bearer ${accessToken}`)
-					.send();
+					.send(updateCustomerDto);
 
-				console.log(userId);
-				console.log(response.body);
+				console.log(response.clientError);
 
-				expect(response.statusCode).toBe(400);
+				expect(response.statusCode).toBe(200);
+			});
+			it("should not updated one register customer", async () => {
+				const response = await request(app.getHttpServer())
+					.patch("/customers/5")
+					.set("Authorization", `bearer ${accessToken}`)
+					.send(updateCustomerDto);
+
+				console.log(response.clientError);
+
+				expect(response.statusCode).toBe(404);
+				expect(response.clientError).toBe(true);
+			});
+		});
+		describe("Delete", () => {
+			it("should deleted one user", async () => {
+				const response = await request(app.getHttpServer())
+					.delete("/customers/1")
+					.set("Authorization", `bearer ${accessToken}`);
+
+				expect(response.statusCode).toBe(200);
+			});
+			it("should not deleted one user", async () => {
+				const response = await request(app.getHttpServer())
+					.delete("/customers/5")
+					.set("Authorization", `bearer ${accessToken}`);
+
+				expect(response.statusCode).toBe(404);
 			});
 		});
 	});

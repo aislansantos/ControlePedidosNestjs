@@ -30,10 +30,12 @@ export class CustomersService {
 	}
 
 	public async update(id: number, updateCustomerDto: UpdateCustomerDto) {
+		await this.exists(id);
 		return await this.customersRepository.update(id, updateCustomerDto);
 	}
 
 	public async remove(id: number) {
+		await this.exists(id);
 		await this.customersRepository.delete(id);
 		return true;
 	}

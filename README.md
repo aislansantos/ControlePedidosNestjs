@@ -2,6 +2,11 @@
 
 Projeto de controle de estoque, que visa melhorar projeto ja executado em NodeJs e ExpressJs, por um projeto feito em NestJs, melhorando a estrutua do projeto, criando uma estrutura mais organizada.
 
+## Objetivo do projeto
+
+O principal objetivo deste projeto foi a absorção de alguns conhecimentos. Sendo ele o seguinte, fixar oritanção a objetos, a forma de fazer o envio de email, que neste caso estamos tratando com o nodeMailer, banco de dados, sendo inicialmente sendo tratado com o prismaORM e em seguida com o typeORM que se mostrou um ORM mais robusto,
+o docker foi outra ferramenta que foi estudada dentro deste projeto,foi usado o swagger para a documentação do api de schemas de DTO e entidades, e finalmente a ferramenta jest para testes: unitários, integração e E2e.
+
 ## Problema apresentado
 
 O principal problema proposto pelo app, é fazer um controle simples de compra e venda de produtos, otimizando o gasto com produto par não haver um estoque inflado, bem como não haver falta de produto para venda.

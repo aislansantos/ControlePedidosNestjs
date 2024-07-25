@@ -234,8 +234,6 @@ describe("userAuth (e2e)", () => {
 					.set("Authorization", `bearer ${accessToken}`)
 					.send(updateCustomerDto);
 
-				console.log(response.clientError);
-
 				expect(response.statusCode).toBe(200);
 			});
 			it("should not updated one register customer", async () => {
@@ -243,8 +241,6 @@ describe("userAuth (e2e)", () => {
 					.patch("/customers/5")
 					.set("Authorization", `bearer ${accessToken}`)
 					.send(updateCustomerDto);
-
-				console.log(response.clientError);
 
 				expect(response.statusCode).toBe(404);
 				expect(response.clientError).toBe(true);

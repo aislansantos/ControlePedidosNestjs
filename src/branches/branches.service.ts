@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { CreateBranchDto } from "./dto/create-branch.dto";
@@ -12,7 +12,9 @@ export class BranchesService {
 		private readonly branchRepository: Repository<BranchEntity>
 	) {}
 	public async create(createBranchDto: CreateBranchDto) {
-		return "This action adds a new branch";
+		const newBranch = this.branchRepository.create(createBranchDto);
+
+		return this.branchRepository.save(newBranch);
 	}
 
 	public async findAll() {
@@ -20,14 +22,24 @@ export class BranchesService {
 	}
 
 	public async findOne(id: number) {
-		return `This action returns a #${id} branch`;
+		await this.exists(id);
+		return await this.branchRepository.findOne({ where: { id } });
 	}
 
 	public async update(id: number, updateBranchDto: UpdateBranchDto) {
-		return `This action updates a #${id} branch`;
+		await this.exists(id);
+		return await this.branchRepository.update(id, updateBranchDto);
 	}
 
 	public async remove(id: number) {
-		return `This action removes a #${id} branch`;
+		await this.exists(id);
+		await this.branchRepository.delete(id);
+		return true;
+	}
+
+	public async exists(id: number) {
+		if (!(await this.branchRepository.exists({ where: { id } }))) {
+			throw new NotFoundException(`A filial com o id ${id} não existe`);
+		}
 	}
 }

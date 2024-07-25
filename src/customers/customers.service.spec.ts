@@ -169,7 +169,7 @@ describe("CustomersService", () => {
 	});
 
 	describe("exists", () => {
-		it("should user not exist", async () => {
+		it("should be not exist customer", async () => {
 			// Arrange
 			jest.spyOn(customerRepository, "exists").mockResolvedValueOnce(false);
 

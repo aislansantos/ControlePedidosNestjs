@@ -1,3 +1,4 @@
+import { NotFoundException } from "@nestjs/common";
 import { Test, TestingModule } from "@nestjs/testing";
 import { getRepositoryToken } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
@@ -21,7 +22,7 @@ const branchesEntityList: BranchEntity[] = [
 		status: Status.active
 	},
 	{
-		id: 2,
+		id: 3,
 		description: "Filial 3",
 		city: "Cidade Teste",
 		status: Status.inactive
@@ -49,12 +50,13 @@ describe("BranchesService", () => {
 					provide: getRepositoryToken(BranchEntity),
 					useValue: {
 						create: jest.fn().mockResolvedValue(createBrancheDTO),
-						save: jest.fn().mockResolvedValue(branchesEntityList),
+						save: jest.fn().mockResolvedValue(branchesEntityList[0]),
 						find: jest.fn().mockResolvedValue(branchesEntityList),
 						findAll: jest.fn().mockResolvedValue(branchesEntityList),
 						findOne: jest.fn().mockResolvedValue(branchesEntityList[0]),
-						update: jest.fn().mockResolvedValue(updateBrancheDTO),
-						delete: jest.fn()
+						update: jest.fn().mockResolvedValue(branchesEntityList[0]),
+						delete: jest.fn(),
+						exists: jest.fn().mockResolvedValue(true)
 					}
 				}
 			]
@@ -90,8 +92,6 @@ describe("BranchesService", () => {
 		it("should found one branch", async () => {
 			// Act
 			const result = await branchService.findOne(1);
-			console.log(result);
-
 			// Assert
 			expect(result).toBe(branchesEntityList[0]);
 		});
@@ -109,6 +109,7 @@ describe("BranchesService", () => {
 		it("should be created one branch", async () => {
 			// Act
 			const result = await branchService.create(createBrancheDTO);
+			console.info(result);
 			// Assert
 			expect(result).toBe(branchesEntityList[0]);
 			expect(brancheRepository.save).toHaveBeenCalledTimes(1);
@@ -145,6 +146,23 @@ describe("BranchesService", () => {
 			const result = await branchService.remove(1);
 			// Assert
 			expect(result).toBe(true);
+		});
+	});
+
+	describe("exists", () => {
+		it("shoud be not exists branch", async () => {
+			// Arrange
+			jest.spyOn(brancheRepository, "exists").mockResolvedValueOnce(false);
+			// Assert
+			try {
+				await branchService.exists(branchesEntityList[0].id);
+				fail("Expected NotFoundException to be throw");
+			} catch (error) {
+				expect(error).toBeInstanceOf(NotFoundException);
+				expect(error.message).toBe(
+					`A filial com o id ${branchesEntityList[0].id} não existe`
+				);
+			}
 		});
 	});
 });

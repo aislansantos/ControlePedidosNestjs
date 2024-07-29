@@ -7,13 +7,15 @@ import {
 	ParseIntPipe,
 	Patch,
 	Post,
-	UseGuards
+	UseGuards,
+	UsePipes
 } from "@nestjs/common";
 import { ApiBearerAuth, ApiConsumes, ApiTags } from "@nestjs/swagger";
 import { AuthGuard } from "../guards/auth/auth.guard";
 import { RoleGuard } from "../guards/role/role.guard";
 import { Roles } from "../utils/decorators/roles.decorator";
 import { Role } from "../utils/enums/role.enum";
+import { UpperCasePipe } from "../utils/pipes/upperCase.pipe";
 import { BranchsService } from "./branchs.service";
 import { CreateBranchDto } from "./dto/create-branch.dto";
 import { UpdateBranchDto } from "./dto/update-branch.dto";
@@ -28,6 +30,7 @@ export class BranchsController {
 	@Roles(Role.Admin, Role.User)
 	@ApiConsumes("application/x-www-form-urlencoded")
 	@ApiConsumes("application/json")
+	@UsePipes(new UpperCasePipe())
 	@Post()
 	public async create(@Body() createBranchDto: CreateBranchDto) {
 		return this.branchsService.create(createBranchDto);

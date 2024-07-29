@@ -7,7 +7,8 @@ import {
 	ParseIntPipe,
 	Patch,
 	Post,
-	UseGuards
+	UseGuards,
+	UsePipes
 } from "@nestjs/common";
 import { ApiBearerAuth, ApiConsumes, ApiTags } from "@nestjs/swagger";
 import { AuthGuard } from "../guards/auth/auth.guard";
@@ -17,6 +18,7 @@ import { Role } from "../utils/enums/role.enum";
 import { CustomersService } from "./customers.service";
 import { CreateCustomerDto } from "./dto/create-customer.dto";
 import { UpdateCustomerDto } from "./dto/update-customer.dto";
+import { UpperCasePipe } from "../utils/pipes/upperCase.pipe";
 
 @ApiTags("Customers")
 @UseGuards(AuthGuard, RoleGuard)
@@ -28,6 +30,7 @@ export class CustomersController {
 	@Roles(Role.Admin, Role.User)
 	@ApiConsumes("application/x-www-form-urlencoded")
 	@ApiConsumes("application/json")
+	@UsePipes(new UpperCasePipe())
 	@Post()
 	public async create(@Body() createCustomerDto: CreateCustomerDto) {
 		return await this.customersService.create(createCustomerDto);

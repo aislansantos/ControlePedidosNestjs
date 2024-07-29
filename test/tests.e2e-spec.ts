@@ -3,6 +3,8 @@ import { Test, TestingModule } from "@nestjs/testing";
 import * as request from "supertest";
 import { AppModule } from "../src/app.module";
 import { AuthRegisterDto } from "../src/auth/dto/auth-register.dto";
+import { CreateBranchDto } from "../src/branchs/dto/create-branch.dto";
+import { UpdateBranchDto } from "../src/branchs/dto/update-branch.dto";
 import { CreateCustomerDto } from "../src/customers/dto/create-customer.dto";
 import { UpdateCustomerDto } from "../src/customers/dto/update-customer.dto";
 import { Role } from "../src/utils/enums/role.enum";
@@ -29,7 +31,16 @@ const updateCustomerDto: UpdateCustomerDto = {
 	name: "Teste 2"
 };
 
-describe("userAuth (e2e)", () => {
+const createBranchDTO: CreateBranchDto = {
+	description: "Filial Teste E2E",
+	city: "Cidade Teste"
+};
+
+const updateBranchDto: UpdateBranchDto = {
+	description: "Filial Alterado"
+};
+
+describe("App (e2e)", () => {
 	let app: INestApplication;
 	let accessToken: string;
 	let userId: number;
@@ -175,8 +186,8 @@ describe("userAuth (e2e)", () => {
 		expect(response.body.length).toBe(2);
 	});
 
-	describe("Customer", () => {
-		describe("create", () => {
+	describe(">Customer<", () => {
+		describe("Create", () => {
 			it("should created a new customer", async () => {
 				// Act
 				const response = await request(app.getHttpServer())
@@ -203,7 +214,7 @@ describe("userAuth (e2e)", () => {
 			});
 		});
 		describe("Read", () => {
-			it("should found all customer", async () => {
+			it("should found all customers", async () => {
 				const response = await request(app.getHttpServer())
 					.get("/customers")
 					.set("Authorization", `bearer ${accessToken}`);
@@ -260,6 +271,100 @@ describe("userAuth (e2e)", () => {
 					.set("Authorization", `bearer ${accessToken}`);
 
 				expect(response.statusCode).toBe(404);
+			});
+		});
+	});
+
+	describe(">Branch<", () => {
+		describe("Create", () => {
+			it("should created a new branch", async () => {
+				// Act
+				const response = await request(app.getHttpServer())
+					.post("/branchs")
+					.set("Authorization", `bearer ${accessToken}`)
+					.send(createBranchDTO);
+				// Assert
+				expect(response.statusCode).toBe(201);
+			});
+			it("should not successfully - create", async () => {
+				// Arange
+				createBranchDTO.city = null;
+				// Act
+				const response = await request(app.getHttpServer())
+					.post("/branchs")
+					.set("Authorization", `bearer ${accessToken}`)
+					.send(createBranchDTO);
+				// Assert
+				expect(response.statusCode).toBe(400);
+				expect(response.badRequest).toBe(true);
+			});
+		});
+		describe("Read", () => {
+			it("should found all branchs", async () => {
+				// Act
+				const response = await request(app.getHttpServer())
+					.get("/branchs")
+					.set("Authorization", `bearer ${accessToken}`);
+				// Assert
+				expect(response.statusCode).toBe(200);
+				expect(response.body.length).toBe(1);
+			});
+			it("should found one branch", async () => {
+				// Act
+				const response = await request(app.getHttpServer())
+					.get("/branchs/1")
+					.set("Authorization", `bearer ${accessToken}`);
+
+				// Assert
+				expect(response.statusCode).toBe(200);
+			});
+			it("should not found all customers - findOne", async () => {
+				// Act
+				const response = await request(app.getHttpServer())
+					.get("/branchs/2")
+					.set("Authorization", `bearer ${accessToken}`);
+				// Assert
+				expect(response.statusCode).toBe(404);
+				expect(response.clientError).toBe(true);
+			});
+		});
+		describe("Update", () => {
+			it("should updated one register branch", async () => {
+				// Act
+				const response = await request(app.getHttpServer())
+					.patch("/branchs/1")
+					.set("Authorization", `bearer ${accessToken}`)
+					.send(updateBranchDto);
+				// Assert
+				expect(response.statusCode).toBe(200);
+			});
+			it("should not updated branch - ", async () => {
+				// Act
+				const response = await request(app.getHttpServer())
+					.patch("/branchs/5")
+					.set("Authorization", `bearer ${accessToken}`)
+					.send(updateBranchDto);
+				// Assert
+				expect(response.statusCode).toBe(404);
+				expect(response.clientError).toBe(true);
+			});
+		});
+		describe("Delete", () => {
+			it("should deleted one branch", async () => {
+				// Act
+				const response = await request(app.getHttpServer())
+					.delete("/branchs/1")
+					.set("Authorization", `bearer ${accessToken}`);
+				// Assert
+				expect(response.status).toBe(200);
+			});
+			it("should not deleted branch - delete ", async () => {
+				// Act
+				const response = await request(app.getHttpServer())
+					.delete("/branchs/5")
+					.set("Authorization", `bearer ${accessToken}`);
+				// Assert
+				expect(response.status).toBe(404);
 			});
 		});
 	});

@@ -6,7 +6,7 @@ import { UpdateBranchDto } from "./dto/update-branch.dto";
 import { BranchEntity } from "./entities/branch.entity";
 
 @Injectable()
-export class BranchesService {
+export class BranchsService {
 	constructor(
 		@InjectRepository(BranchEntity)
 		private readonly branchRepository: Repository<BranchEntity>

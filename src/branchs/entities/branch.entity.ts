@@ -2,7 +2,7 @@ import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 import { Status } from "../../utils/enums/active.enum";
 
 @Entity({
-	name: "branches"
+	name: "branchs"
 })
 export class BranchEntity {
 	/**

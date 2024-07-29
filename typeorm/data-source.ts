@@ -1,6 +1,7 @@
 import * as dotenv from "dotenv";
 import { DataSource, DataSourceOptions } from "typeorm";
 import { SeederOptions } from "typeorm-extension";
+import { BranchEntity } from "../src/branchs/entities/branch.entity";
 import { CustomerEntity } from "../src/customers/entities/customer.entity";
 import { UserEntity } from "../src/users/entities/user.entity";
 import { MainSeeder } from "../src/utils/seeds/main.seeder";
@@ -20,7 +21,7 @@ const options: DataSourceOptions & SeederOptions = {
 	username: process.env.DB_USERNAME,
 	password: process.env.DB_PASSWORD,
 	database: process.env.DB_DATABASE,
-	entities: [UserEntity, CustomerEntity],
+	entities: [UserEntity, CustomerEntity, BranchEntity],
 	migrations: [`${__dirname}/migrations/**/*.ts`],
 	// Precisamos somente da mainSeed que ja está fazendo a gestão das seeds.
 	seeds: [MainSeeder]

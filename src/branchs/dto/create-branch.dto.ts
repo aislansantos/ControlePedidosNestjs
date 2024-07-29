@@ -1,4 +1,4 @@
-import { IsEnum, IsString } from "class-validator";
+import { IsEnum, IsOptional, IsString } from "class-validator";
 import { Status } from "../../utils/enums/active.enum";
 
 export class CreateBranchDto {
@@ -19,6 +19,7 @@ export class CreateBranchDto {
 	/**
 	 * Campo opcional - pode ser usado com o valor 0(inativo), padrão dele é 1(ativo).
 	 */
+	@IsOptional()
 	@IsEnum(Status)
 	status?: number;
 }

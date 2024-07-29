@@ -126,7 +126,7 @@ describe("CustomersController", () => {
 	describe("findOne", () => {
 		it("should found one user successfully", async () => {
 			// Act
-			const result = await customerService.findOne(1);
+			const result = await customerController.findOne(1);
 			// Assert
 			expect(result).toEqual(custometEntityList[0]);
 			expect(typeof result).toBe("object");
@@ -143,7 +143,7 @@ describe("CustomersController", () => {
 	describe("create", () => {
 		it("should created a new customer successfully", async () => {
 			// Act
-			const result = await customerService.create(createCustomerDTO);
+			const result = await customerController.create(createCustomerDTO);
 			// Assert
 			expect(result).toBe(custometEntityList[0]);
 			expect(customerService.create).toHaveBeenCalledTimes(1);
@@ -160,7 +160,7 @@ describe("CustomersController", () => {
 	describe("update", () => {
 		it("shoud updated one customer successfully", async () => {
 			// Act
-			const result = await customerService.update(1, updateCustomerDTO);
+			const result = await customerController.update(1, updateCustomerDTO);
 			// Assert
 			expect(result).toBe(custometEntityList[0]);
 		});
@@ -175,7 +175,7 @@ describe("CustomersController", () => {
 	describe("delete", () => {
 		it("should deleted a customer successfully", async () => {
 			// Act
-			const result = await customerService.remove(1);
+			const result = await customerController.remove(1);
 			// Assert
 			expect(result).toBeUndefined();
 		});

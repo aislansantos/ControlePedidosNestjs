@@ -8,11 +8,12 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 import { AuthModule } from "./auth/auth.module";
+import { BranchsModule } from "./branchs/branchs.module";
+import { BranchEntity } from "./branchs/entities/branch.entity";
 import { CustomersModule } from "./customers/customers.module";
 import { CustomerEntity } from "./customers/entities/customer.entity";
 import { UserEntity } from "./users/entities/user.entity";
 import { UsersModule } from "./users/users.module";
-import { BranchesModule } from './branches/branches.module';
 
 @Module({
 	/* 
@@ -43,7 +44,7 @@ import { BranchesModule } from './branches/branches.module';
 			username: process.env.DB_USERNAME,
 			password: process.env.DB_PASSWORD,
 			database: process.env.DB_DATABASE,
-			entities: [UserEntity, CustomerEntity],
+			entities: [UserEntity, CustomerEntity, BranchEntity],
 			synchronize:
 				process.env.ENV === "development" || process.env.ENV === "test",
 			charset: "utf8mb4_unicode_ci", // Ajuste a codificação de acordo com o seu banco de dados
@@ -71,7 +72,7 @@ import { BranchesModule } from './branches/branches.module';
 				}
 			}
 		}),
-		BranchesModule
+		BranchsModule
 	],
 	controllers: [AppController],
 	// Aqui protegempos toda a aplicação de tentativas seguida de acesso, podemos colocar como um guard em uma rota especifica

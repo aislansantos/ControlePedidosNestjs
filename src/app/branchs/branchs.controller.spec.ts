@@ -1,8 +1,8 @@
 import { CanActivate, ExecutionContext, Injectable } from "@nestjs/common";
 import { Test, TestingModule } from "@nestjs/testing";
-import { AuthGuard } from "../guards/auth/auth.guard";
-import { RoleGuard } from "../guards/role/role.guard";
-import { Status } from "../utils/enums/active.enum";
+import { AuthGuard } from "../../guards/auth/auth.guard";
+import { RoleGuard } from "../../guards/role/role.guard";
+import { Status } from "../../utils/enums/active.enum";
 import { BranchsController } from "./branchs.controller";
 import { BranchsService } from "./branchs.service";
 import { CreateBranchDto } from "./dto/create-branch.dto";
@@ -25,13 +25,13 @@ const roleGuardMock: CanActivate = {
 const branchsEntityList: BranchEntity[] = [
 	{
 		id: 1,
-		description: "Filial 1",
-		city: "Cidade Teste",
+		description: "FILIAL 1",
+		city: "CIDADE TESTE",
 		status: Status.active
 	},
 	{
 		id: 2,
-		description: "Filial 2",
+		description: "FILIAL 2",
 		city: "Cidade Teste",
 		status: Status.active
 	},
@@ -44,8 +44,8 @@ const branchsEntityList: BranchEntity[] = [
 ];
 
 const createBrancheDTO: CreateBranchDto = {
-	description: "Filial 4",
-	city: "Cidade Teste4"
+	description: "filial 1",
+	city: "cidade teste"
 };
 
 const updateBrancheDTO: UpdateBranchDto = {
@@ -89,80 +89,61 @@ describe("BranchsController", () => {
 
 	describe("findAll", () => {
 		it("should found a list branchs successfully", async () => {
-			// Act
 			const result = await branchsController.findAll();
-			console.assert(result);
-			// Assert
 			expect(result).toBe(branchsEntityList);
 			expect(typeof result).toBe("object");
 			expect(branchsService.findAll).toHaveBeenCalledTimes(1);
 		});
 		it("should throw an exception - findAll", () => {
-			// Arrange
 			jest.spyOn(branchsService, "findAll").mockRejectedValueOnce(new Error());
-			// Assert
 			expect(branchsService.findAll()).rejects.toThrow();
 		});
 	});
 
 	describe("findOne", () => {
 		it("should found one branch successfully", async () => {
-			// Act
 			const result = await branchsController.findOne(1);
-			// Assert
 			expect(result).toBe(branchsEntityList[0]);
 		});
 		it("should throw an exception - findOne", () => {
-			// Arange
 			jest.spyOn(branchsService, "findOne").mockRejectedValueOnce(new Error());
-			// Assert
 			expect(branchsController.findOne(1)).rejects.toThrow();
 		});
 	});
 
 	describe("create", () => {
-		it("should be create one branch", async () => {
-			// Act
+		it("should create one branch", async () => {
 			const result = await branchsController.create(createBrancheDTO);
-			// Assert
+
 			expect(result).toBe(createBrancheDTO);
 			expect(branchsService.create).toHaveBeenCalledTimes(1);
 			expect(branchsService.create).toHaveBeenCalledWith(createBrancheDTO);
 		});
+
 		it("should throw an exception - create", () => {
-			// Arange
 			jest.spyOn(branchsService, "create").mockRejectedValueOnce(new Error());
-			// Assert
 			expect(branchsController.create(createBrancheDTO)).rejects.toThrow();
 		});
 	});
 
 	describe("update", () => {
 		it("should updated one customer successsully", async () => {
-			// Act
 			const result = await branchsController.update(1, updateBrancheDTO);
-			// Assert
 			expect(result).toBe(updateBrancheDTO);
 		});
 		it("should throw an exception - update", () => {
-			// Arange
 			jest.spyOn(branchsService, "update").mockRejectedValueOnce(new Error());
-			// Assert
 			expect(branchsController.update(1, updateBrancheDTO)).rejects.toThrow();
 		});
 	});
 
 	describe("delete", () => {
 		it("should deleted a branch successfully", async () => {
-			// Act
 			const result = await branchsController.remove(1);
-			// Assert
 			expect(result).toBeUndefined();
 		});
 		it("should throw an exception - delete", () => {
-			// Arange
 			jest.spyOn(branchsService, "remove").mockRejectedValueOnce(new Error());
-			// Assert
 			expect(branchsController.remove(1)).rejects.toThrow();
 		});
 	});

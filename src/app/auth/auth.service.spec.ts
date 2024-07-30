@@ -78,6 +78,7 @@ describe("AuthService", () => {
 	let userRepository: Repository<UserEntity>;
 
 	beforeEach(async () => {
+		jwtService = new JwtService({} as any);
 		const module: TestingModule = await Test.createTestingModule({
 			providers: [
 				AuthService,
@@ -267,7 +268,7 @@ describe("AuthService", () => {
 
 			it("should return false for an invalid token", () => {
 				// Mockando jwtServiceMock.verify para lançar uma BadRequestException
-				(jwtService.verify as jest.Mock).mockImplementation(() => {
+				(jwtService.verify as jest.Mock).mockImplementationOnce(() => {
 					throw new BadRequestException("Token inválido");
 				});
 

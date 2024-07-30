@@ -1,17 +1,21 @@
-import { BadRequestException, Injectable, PipeTransform } from "@nestjs/common";
+import { Injectable, PipeTransform } from "@nestjs/common";
 
 @Injectable()
 export class UpperCasePipe implements PipeTransform {
 	transform(value: any) {
-		console.log(value);
-
-		if (value) {
-			for (const i in value) {
-				value[i] = value[i].toUpperCase();
-			}
-
-			return value;
+		switch (typeof value) {
+			case "number":
+				return value;
+				break;
+			case "string":
+				return value.toUpperCase();
+				break;
+			case "object":
+				Object.keys(value).forEach(
+					(key) => (value[key] = this.transform(value[key]))
+				);
 		}
-		throw new BadRequestException("validação falhou!");
+		if (Array.isArray(value)) value = value.map((v) => this.transform(v));
+		return value;
 	}
 }

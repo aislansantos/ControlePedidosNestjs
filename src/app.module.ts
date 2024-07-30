@@ -8,12 +8,13 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 import { AuthModule } from "./auth/auth.module";
-import { BranchsModule } from "./branchs/branchs.module";
-import { BranchEntity } from "./branchs/entities/branch.entity";
-import { CustomersModule } from "./customers/customers.module";
-import { CustomerEntity } from "./customers/entities/customer.entity";
+import { BranchsModule } from "./app/branchs/branchs.module";
+import { BranchEntity } from "./app/branchs/entities/branch.entity";
+import { CustomersModule } from "./app/customers/customers.module";
+import { CustomerEntity } from "./app/customers/entities/customer.entity";
 import { UserEntity } from "./users/entities/user.entity";
 import { UsersModule } from "./users/users.module";
+import { SellersModule } from './app/sellers/sellers.module';
 
 @Module({
 	/* 
@@ -72,7 +73,8 @@ import { UsersModule } from "./users/users.module";
 				}
 			}
 		}),
-		BranchsModule
+		BranchsModule,
+		SellersModule
 	],
 	controllers: [AppController],
 	// Aqui protegempos toda a aplicação de tentativas seguida de acesso, podemos colocar como um guard em uma rota especifica

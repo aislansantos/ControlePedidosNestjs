@@ -13,12 +13,10 @@ export const User = createParamDecorator(
 				"Usuário não encontrado no request. Use o AuthGuard para obter o usuário."
 			);
 		}
-
 		// ! Criando filter para quando mandar alguma coisa no decorator
 		if (filter) {
 			return request.user[filter];
 		}
-
 		return request.user;
 	}
 );

@@ -2,7 +2,7 @@ import { NotFoundException } from "@nestjs/common";
 import { Test, TestingModule } from "@nestjs/testing";
 import { getRepositoryToken } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import { Status } from "../utils/enums/active.enum";
+import { Status } from "../../utils/enums/active.enum";
 import { CustomersService } from "./customers.service";
 import { CreateCustomerDto } from "./dto/create-customer.dto";
 import { UpdateCustomerDto } from "./dto/update-customer.dto";
@@ -93,87 +93,67 @@ describe("CustomersService", () => {
 
 	describe("findAll", () => {
 		it("should found all customers", async () => {
-			// Act
 			const result = await customerService.findAll();
-			// Assert
 			expect(result).toBe(customerEntityList);
 			expect(customerRepository.find).toHaveBeenCalledTimes(1);
 		});
 		it("shold throw an exception - findAll", () => {
-			// Arrange
 			jest.spyOn(customerRepository, "find").mockRejectedValueOnce(new Error());
-			// Assert
 			expect(customerService.findAll()).rejects.toThrow();
 		});
 	});
 
 	describe("findOne", () => {
 		it("should found one customer", async () => {
-			// Act
 			const result = await customerService.findOne(1);
-			// Assert
 			expect(result).toBe(customerEntityList[0]);
 			expect(customerRepository.findOne).toHaveBeenCalledTimes(1);
 		});
 		it("shold throw an exception - findOne", () => {
-			// Arrange
 			jest.spyOn(customerService, "findOne").mockRejectedValueOnce(new Error());
-			// Assert
 			expect(customerService.findOne(1)).rejects.toThrow();
 		});
 	});
 
 	describe("create", () => {
 		it("should be created one customer", async () => {
-			// Act
 			const result = await customerService.create(createCustomerDTO);
-			// Assert
 			expect(result).toBe(customerEntityList[0]);
 			expect(customerRepository.save).toHaveBeenCalledTimes(1);
 		});
 		it("shold throw an exception - create", () => {
-			// Act
 			jest.spyOn(customerRepository, "save").mockRejectedValueOnce(new Error());
-			// Assert
 			expect(customerService.create(createCustomerDTO)).rejects.toThrow();
 		});
 	});
 
 	describe("update", () => {
 		it("should be updated one customer", async () => {
-			// Act
 			const result = await customerService.update(2, updateCustomerDTO);
 
-			// Assert
 			expect(result).toEqual(customerEntityList[0]);
 			expect(updateCustomerDTO.telephone).toBeDefined();
 			expect(updateCustomerDTO.birthDate).not.toBeDefined();
 		});
 		it("shold throw an exception - update", () => {
-			// Arrange
 			jest
 				.spyOn(customerRepository, "update")
 				.mockRejectedValueOnce(new Error());
-			// Assert
 			expect(customerService.update(2, updateCustomerDTO)).rejects.toThrow();
 		});
 	});
 
 	describe("delete", () => {
 		it("should be removed one customer", async () => {
-			// Act
 			const result = await customerService.remove(1);
-			// Assert
 			expect(result).toBe(true);
 		});
 	});
 
 	describe("exists", () => {
 		it("should be not exist customer", async () => {
-			// Arrange
 			jest.spyOn(customerRepository, "exists").mockResolvedValueOnce(false);
 
-			// Assert
 			try {
 				await customerService.exists(customerEntityList[0].id);
 				fail("Expected NotFoundException to be thrown");

@@ -2,7 +2,7 @@ import { NotFoundException } from "@nestjs/common";
 import { Test, TestingModule } from "@nestjs/testing";
 import { getRepositoryToken } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import { Status } from "../utils/enums/active.enum";
+import { Status } from "../../utils/enums/active.enum";
 import { BranchsService } from "./branchs.service";
 import { CreateBranchDto } from "./dto/create-branch.dto";
 import { UpdateBranchDto } from "./dto/update-branch.dto";
@@ -75,85 +75,65 @@ describe("BranchsService", () => {
 
 	describe("findAll", () => {
 		it("should found all branchs", async () => {
-			// act
 			const result = await branchService.findAll();
-			// Assert
 			expect(result).toBe(branchsEntityList);
 			expect(brancheRepository.find).toHaveBeenCalledTimes(1);
 		});
 		it("should be throw an excepetion - findAll", () => {
-			// Arrange
 			jest.spyOn(brancheRepository, "find").mockRejectedValueOnce(new Error());
-			// Assert
 			expect(branchService.findAll()).rejects.toThrow();
 		});
 	});
 
 	describe("findOne", () => {
 		it("should found one branch", async () => {
-			// Act
 			const result = await branchService.findOne(1);
-			// Assert
 			expect(result).toBe(branchsEntityList[0]);
 		});
 		it("should be throw an excepetion - ", () => {
-			// Arrange
 			jest
 				.spyOn(brancheRepository, "findOne")
 				.mockRejectedValueOnce(new Error());
-			// Assert
 			expect(branchService.findOne(1)).rejects.toThrow();
 		});
 	});
 
 	describe("Create", () => {
 		it("should be created one branch", async () => {
-			// Act
 			const result = await branchService.create(createBrancheDTO);
-			// Assert
 			expect(result).toBe(branchsEntityList[0]);
 			expect(brancheRepository.save).toHaveBeenCalledTimes(1);
 		});
 		it("should be throw an excepetion - create", () => {
-			// Arrange
 			jest.spyOn(brancheRepository, "save").mockRejectedValueOnce(new Error());
-			// Assert
 			expect(branchService.create(createBrancheDTO)).rejects.toThrow();
 		});
 	});
 
 	describe("Update", () => {
 		it("should updated one branch", async () => {
-			// Act
 			const result = await branchService.update(1, updateBrancheDTO);
-			// Assert
 			expect(result).toEqual(branchsEntityList[0]);
 			expect(updateBrancheDTO.description).toBeDefined();
 		});
 		it("should be throw an excepetion - Update", () => {
-			// Arrange
 			jest
 				.spyOn(brancheRepository, "update")
 				.mockRejectedValueOnce(new Error());
-			// Assert
 			expect(branchService.update(2, updateBrancheDTO)).rejects.toThrow();
 		});
 	});
 
 	describe("delete", () => {
 		it("should be delete one branch", async () => {
-			// Act
 			const result = await branchService.remove(1);
-			// Assert
 			expect(result).toBe(true);
 		});
 	});
 
 	describe("exists", () => {
 		it("shoud be not exists branch", async () => {
-			// Arrange
 			jest.spyOn(brancheRepository, "exists").mockResolvedValueOnce(false);
-			// Assert
 			try {
 				await branchService.exists(branchsEntityList[0].id);
 				fail("Expected NotFoundException to be throw");

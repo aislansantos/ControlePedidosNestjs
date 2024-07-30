@@ -1,8 +1,8 @@
 import { CanActivate, ExecutionContext, Injectable } from "@nestjs/common";
 import { Test, TestingModule } from "@nestjs/testing";
-import { AuthGuard } from "../guards/auth/auth.guard";
-import { RoleGuard } from "../guards/role/role.guard";
-import { Status } from "../utils/enums/active.enum";
+import { AuthGuard } from "../../guards/auth/auth.guard";
+import { RoleGuard } from "../../guards/role/role.guard";
+import { Status } from "../../utils/enums/active.enum";
 import { CustomersController } from "./customers.controller";
 import { CustomersService } from "./customers.service";
 import { CreateCustomerDto } from "./dto/create-customer.dto";
@@ -108,81 +108,61 @@ describe("CustomersController", () => {
 
 	describe("findAll", () => {
 		it("should found a user list entity successfully", async () => {
-			// Act
 			const result = await customerController.findAll();
-			// Assert
 			expect(result).toEqual(custometEntityList);
 			expect(typeof result).toBe("object");
 			expect(customerService.findAll).toHaveBeenCalledTimes(1);
 		});
 		it("shold throw an exception - findAll", () => {
-			// Arrange
 			jest.spyOn(customerService, "findAll").mockRejectedValueOnce(new Error());
-			// Assert
 			expect(customerController.findAll()).rejects.toThrow();
 		});
 	});
 
 	describe("findOne", () => {
 		it("should found one user successfully", async () => {
-			// Act
 			const result = await customerController.findOne(1);
-			// Assert
 			expect(result).toEqual(custometEntityList[0]);
 			expect(typeof result).toBe("object");
 			expect(customerService.findOne).toHaveBeenCalledTimes(1);
 		});
 		it("shold throw an exception - findeOne", () => {
-			// Arrange
 			jest.spyOn(customerService, "findOne").mockRejectedValueOnce(new Error());
-			// Assert
 			expect(customerController.findOne(1)).rejects.toThrow();
 		});
 	});
 
 	describe("create", () => {
 		it("should created a new customer successfully", async () => {
-			// Act
 			const result = await customerController.create(createCustomerDTO);
-			// Assert
 			expect(result).toBe(custometEntityList[0]);
 			expect(customerService.create).toHaveBeenCalledTimes(1);
 			expect(customerService.create).toHaveBeenCalledWith(createCustomerDTO);
 		});
 		it("shold throw an exception - create", () => {
-			// Arrange
 			jest.spyOn(customerService, "create").mockRejectedValueOnce(new Error());
-			// Assert
 			expect(customerController.create(createCustomerDTO)).rejects.toThrow();
 		});
 	});
 
 	describe("update", () => {
 		it("shoud updated one customer successfully", async () => {
-			// Act
 			const result = await customerController.update(1, updateCustomerDTO);
-			// Assert
 			expect(result).toBe(custometEntityList[0]);
 		});
 		it("shold throw an exception - update", () => {
-			// Arrange
 			jest.spyOn(customerService, "update").mockRejectedValueOnce(new Error());
-			// Assert
 			expect(customerController.update(1, updateCustomerDTO)).rejects.toThrow();
 		});
 	});
 
 	describe("delete", () => {
 		it("should deleted a customer successfully", async () => {
-			// Act
 			const result = await customerController.remove(1);
-			// Assert
 			expect(result).toBeUndefined();
 		});
 		it("shold throw an exception - delete", () => {
-			// Arrange
 			jest.spyOn(customerService, "remove").mockRejectedValueOnce(new Error());
-			// Assert
 			expect(customerController.remove(1)).rejects.toThrow();
 		});
 	});

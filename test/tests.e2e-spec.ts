@@ -3,10 +3,10 @@ import { Test, TestingModule } from "@nestjs/testing";
 import * as request from "supertest";
 import { AppModule } from "../src/app.module";
 import { AuthRegisterDto } from "../src/auth/dto/auth-register.dto";
-import { CreateBranchDto } from "../src/branchs/dto/create-branch.dto";
-import { UpdateBranchDto } from "../src/branchs/dto/update-branch.dto";
-import { CreateCustomerDto } from "../src/customers/dto/create-customer.dto";
-import { UpdateCustomerDto } from "../src/customers/dto/update-customer.dto";
+import { CreateBranchDto } from "../src/app/branchs/dto/create-branch.dto";
+import { UpdateBranchDto } from "../src/app/branchs/dto/update-branch.dto";
+import { CreateCustomerDto } from "../src/app/customers/dto/create-customer.dto";
+import { UpdateCustomerDto } from "../src/app/customers/dto/update-customer.dto";
 import { Role } from "../src/utils/enums/role.enum";
 import dataSource from "../typeorm/data-source";
 
@@ -101,7 +101,7 @@ describe("App (e2e)", () => {
 		accessToken = response.body.accessToken;
 	});
 
-	it("Pegar os dados do usuário logado", async () => {
+	it("should get the logged in user's data", async () => {
 		const response = await request(app.getHttpServer())
 			.post("/auth/me")
 			.set("Authorization", `bearer ${accessToken}`)
@@ -113,7 +113,7 @@ describe("App (e2e)", () => {
 	});
 
 	// Para testar se o usuario está podendo se cadastrar somenete com USER
-	it("Tentar logar usuário como administrador", async () => {
+	it("should try logging in as user as administrator", async () => {
 		const response = await request(app.getHttpServer())
 			.post("/auth/register")
 			.send({
@@ -129,7 +129,7 @@ describe("App (e2e)", () => {
 	});
 
 	// Valida se o cadastro acima foi cadastrado como UUSER como deve ocorrer
-	it("Validar se o usuário cadastrado ainda é USER", async () => {
+	it("should validate if the registered user is still USER", async () => {
 		const response = await request(app.getHttpServer())
 			.post("/auth/me")
 			.set("Authorization", `bearer ${accessToken}`)
@@ -143,7 +143,7 @@ describe("App (e2e)", () => {
 	});
 
 	// Testa se a regra de não mostrar os dados de cadastro para um usuário USER está valendo.
-	it("Tenta consultar o cadastro de um usuário especifico, sem acesso", async () => {
+	it("should consult the registration of a specific user, without access", async () => {
 		const response = await request(app.getHttpServer())
 			.get("/users/:id")
 			.set("Authorization", `bearer ${accessToken}`)
@@ -154,7 +154,7 @@ describe("App (e2e)", () => {
 	});
 
 	// Muda o cadastro do usuário para administrador para testarmos a proteção da rota.
-	it("Altera manualmente o usuário para adninistrador", async () => {
+	it("should manually change the user to administrator", async () => {
 		const ds = await dataSource.initialize();
 
 		const queryRunner = ds.createQueryRunner();
@@ -175,13 +175,11 @@ describe("App (e2e)", () => {
 		expect(rows[0].role).toBe(Role.Admin);
 	});
 
-	it("Tentando ver a lista de todos os usuários, agora com acesso de ad", async () => {
-		// Act
+	it("should try to see the list of all users, now with administrator access", async () => {
 		const response = await request(app.getHttpServer())
 			.get("/users")
 			.set("Authorization", `bearer ${accessToken}`)
 			.send();
-		// Assert
 		expect(response.statusCode).toBe(200);
 		expect(response.body.length).toBe(2);
 	});
@@ -189,26 +187,21 @@ describe("App (e2e)", () => {
 	describe(">Customer<", () => {
 		describe("Create", () => {
 			it("should created a new customer", async () => {
-				// Act
 				const response = await request(app.getHttpServer())
 					.post("/customers")
 					.set("Authorization", `bearer ${accessToken}`)
 					.send(createCustomerDTO);
 
-				// Assert
 				expect(response.statusCode).toBe(201);
 			});
 			it("should not success - create", async () => {
-				// Arrange
 				createCustomerDTO.birthDate = "1985-02-31";
 
-				// Act
 				const response = await request(app.getHttpServer())
 					.post("/customers")
 					.set("Authorization", `bearer ${accessToken}`)
 					.send(createCustomerDTO);
 
-				// Assert
 				expect(response.statusCode).toBe(400);
 				expect(response.badRequest).toBe(true);
 			});
@@ -278,92 +271,74 @@ describe("App (e2e)", () => {
 	describe(">Branch<", () => {
 		describe("Create", () => {
 			it("should created a new branch", async () => {
-				// Act
 				const response = await request(app.getHttpServer())
 					.post("/branchs")
 					.set("Authorization", `bearer ${accessToken}`)
 					.send(createBranchDTO);
-				// Assert
 				expect(response.statusCode).toBe(201);
 			});
 			it("should not successfully - create", async () => {
 				// Arange
 				createBranchDTO.city = null;
-				// Act
 				const response = await request(app.getHttpServer())
 					.post("/branchs")
 					.set("Authorization", `bearer ${accessToken}`)
 					.send(createBranchDTO);
-				// Assert
 				expect(response.statusCode).toBe(400);
 				expect(response.badRequest).toBe(true);
 			});
 		});
 		describe("Read", () => {
 			it("should found all branchs", async () => {
-				// Act
 				const response = await request(app.getHttpServer())
 					.get("/branchs")
 					.set("Authorization", `bearer ${accessToken}`);
-				// Assert
 				expect(response.statusCode).toBe(200);
 				expect(response.body.length).toBe(1);
 			});
 			it("should found one branch", async () => {
-				// Act
 				const response = await request(app.getHttpServer())
 					.get("/branchs/1")
 					.set("Authorization", `bearer ${accessToken}`);
 
-				// Assert
 				expect(response.statusCode).toBe(200);
 			});
 			it("should not found all customers - findOne", async () => {
-				// Act
 				const response = await request(app.getHttpServer())
 					.get("/branchs/2")
 					.set("Authorization", `bearer ${accessToken}`);
-				// Assert
 				expect(response.statusCode).toBe(404);
 				expect(response.clientError).toBe(true);
 			});
 		});
 		describe("Update", () => {
 			it("should updated one register branch", async () => {
-				// Act
 				const response = await request(app.getHttpServer())
 					.patch("/branchs/1")
 					.set("Authorization", `bearer ${accessToken}`)
 					.send(updateBranchDto);
-				// Assert
 				expect(response.statusCode).toBe(200);
 			});
 			it("should not updated branch - ", async () => {
-				// Act
 				const response = await request(app.getHttpServer())
 					.patch("/branchs/5")
 					.set("Authorization", `bearer ${accessToken}`)
 					.send(updateBranchDto);
-				// Assert
 				expect(response.statusCode).toBe(404);
 				expect(response.clientError).toBe(true);
 			});
 		});
 		describe("Delete", () => {
 			it("should deleted one branch", async () => {
-				// Act
 				const response = await request(app.getHttpServer())
 					.delete("/branchs/1")
 					.set("Authorization", `bearer ${accessToken}`);
-				// Assert
 				expect(response.status).toBe(200);
 			});
 			it("should not deleted branch - delete ", async () => {
-				// Act
 				const response = await request(app.getHttpServer())
 					.delete("/branchs/5")
 					.set("Authorization", `bearer ${accessToken}`);
-				// Assert
 				expect(response.status).toBe(404);
 			});
 		});

@@ -111,20 +111,16 @@ describe("UsersController", () => {
 
 	describe("findAll", () => {
 		it("should return a user list entity successfully", async () => {
-			// Act
 			const result = await userController.findAll();
 
-			// Assert
 			expect(result).toEqual(userEntityList);
 			expect(typeof result).toBe("object");
 			expect(userService.findAll).toHaveBeenCalledTimes(1);
 		});
 
 		it("shoul throw an exception - findAll", () => {
-			// Arrange
 			jest.spyOn(userService, "findAll").mockRejectedValueOnce(new Error());
 
-			// Assert
 			expect(userController.findAll()).rejects.toThrow(Error);
 		});
 	});
@@ -147,7 +143,6 @@ describe("UsersController", () => {
 		});
 
 		it("should throw an exception - create", () => {
-			// Arrange
 			jest.spyOn(userService, "create").mockRejectedValueOnce(new Error());
 
 			expect(userController.create(createUserDTO)).rejects.toThrow();

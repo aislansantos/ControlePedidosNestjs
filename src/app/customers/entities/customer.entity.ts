@@ -1,11 +1,11 @@
 import {
-	Column,
-	CreateDateColumn,
-	Entity,
-	PrimaryGeneratedColumn,
-	UpdateDateColumn
+    Column,
+    CreateDateColumn,
+    Entity,
+    PrimaryGeneratedColumn,
+    UpdateDateColumn
 } from "typeorm";
-import { Status } from "../../utils/enums/active.enum";
+import { Status } from "../../../utils/enums/active.enum";
 
 @Entity({
 	name: "customers"

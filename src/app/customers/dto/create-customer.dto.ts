@@ -1,6 +1,6 @@
 import { IsEmail, IsEnum, IsOptional, IsString } from "class-validator";
-import { Validate } from "../../utils/decorators/dateValidate.decorator";
-import { Status } from "../../utils/enums/active.enum";
+import { Validate } from "../../../utils/decorators/dateValidate.decorator";
+import { Status } from "../../../utils/enums/active.enum";
 
 export class CreateCustomerDto {
 	/**

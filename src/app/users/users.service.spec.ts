@@ -81,58 +81,45 @@ describe("UsersService", () => {
 
 	describe("findAll", () => {
 		it("should found all users", async () => {
-			// Act
 			const result = await userService.findAll();
 
-			// Assert
 			expect(result).toBe(userEntityList);
 			expect(userRepository.find).toHaveBeenCalledTimes(1);
 		});
 
 		it("should throw an exception - findAll", () => {
-			// Arrange
 			jest.spyOn(userRepository, "find").mockRejectedValueOnce(new Error());
 
-			// Assert
 			expect(userService.findAll()).rejects.toThrow();
 		});
 	});
 
 	describe("findOne", () => {
 		it("should found one user", async () => {
-			// Act
 			const result = await userService.findOne(1);
-			// Assert
 			expect(result).toBe(userEntityList[0]);
 			expect(userRepository.findOne).toHaveBeenCalledTimes(1);
 		});
 		it("should throw an exception - findOne", () => {
-			// Arrange
 			jest.spyOn(userRepository, "findOne").mockRejectedValueOnce(new Error());
-			// Assert
 			expect(userService.findOne(1)).rejects.toThrow();
 		});
 	});
 
 	describe("Create", () => {
 		it("should be tested method create", async () => {
-			// Act
 			jest.spyOn(userRepository, "exists").mockResolvedValueOnce(false);
 
-			// Arrange
 			const result = await userService.create(createUserDTO);
 
-			// Assert
 			expect(result).toEqual(userEntityList[0]);
 			expect(userRepository.save).toHaveBeenCalledTimes(1);
 		});
 
 		it("should throw an exception - create", async () => {
-			// Act
 			jest.spyOn(userRepository, "exists").mockResolvedValueOnce(false);
 			jest.spyOn(userRepository, "save").mockRejectedValueOnce(new Error());
 
-			// Assert
 			expect(userService.create(createUserDTO)).rejects.toThrow();
 		});
 
@@ -149,24 +136,20 @@ describe("UsersService", () => {
 
 	describe("Update", () => {
 		it("should be updated one data user", async () => {
-			// Arrange
 			const updateUserDto: UpdateUserDto = {
 				name: "Augusto Angelo Santos",
 				birthDate: new Date("2021-11-22"),
 				password: "Aa123456"
 			};
 
-			// Act
 			const result = await userService.update(2, updateUserDto);
 
-			// Assert
 			expect(result).toBe(userEntityList[0]);
 			expect(updateUserDto.birthDate).toBeDefined();
 			expect(updateUserDto.password).toBeDefined();
 		});
 
 		it("should throw an exception", () => {
-			// Arrange
 			const updateUserDto: UpdateUserDto = {
 				name: "Augusto Angelo Santos",
 				birthDate: new Date("2021-11-22")
@@ -174,7 +157,6 @@ describe("UsersService", () => {
 
 			jest.spyOn(userRepository, "update").mockRejectedValueOnce(new Error());
 
-			// Assert
 			expect(userService.update(2, updateUserDto)).rejects.toThrow();
 		});
 	});
@@ -189,10 +171,8 @@ describe("UsersService", () => {
 
 	describe("exists", () => {
 		it("User not exists", async () => {
-			// Arrange
 			jest.spyOn(userRepository, "exists").mockResolvedValueOnce(false);
 
-			// Assert
 			try {
 				await userService.exists(userEntityList[0].id);
 				fail("Expected NotFoundException to be thrown");

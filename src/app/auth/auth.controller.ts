@@ -1,13 +1,13 @@
+import { AuthService } from "@auth/auth.service";
+import { AuthForgetDto } from "@auth/dto/auth-forget.dto";
+import { AuthLoginDto } from "@auth/dto/auth-login.dto";
+import { AuthRegisterDto } from "@auth/dto/auth-register.dto";
+import { AuthResetDto } from "@auth/dto/auth-reset.dto";
+import { AuthGuard } from "@authGuard/auth.guard";
+import { User } from "@decorators/user.decorator";
 import { Body, Controller, Post, UseGuards } from "@nestjs/common";
 import { ApiBearerAuth, ApiConsumes, ApiTags } from "@nestjs/swagger";
-import { AuthGuard } from "../guards/auth/auth.guard";
-import { UserEntity } from "../users/entities/user.entity";
-import { User } from "../utils/decorators/user.decorator";
-import { AuthService } from "./auth.service";
-import { AuthForgetDto } from "./dto/auth-forget.dto";
-import { AuthLoginDto } from "./dto/auth-login.dto";
-import { AuthRegisterDto } from "./dto/auth-register.dto";
-import { AuthResetDto } from "./dto/auth-reset.dto";
+import { UserEntity } from "@users/entities/user.entity";
 
 @ApiTags("Auths")
 @ApiBearerAuth("JWT-auth")

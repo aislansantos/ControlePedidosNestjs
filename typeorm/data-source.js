@@ -2,9 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const dotenv = require("dotenv");
 const typeorm_1 = require("typeorm");
-const branch_entity_1 = require("../src/app/branchs/entities/branch.entity");
-const customer_entity_1 = require("../src/app/customers/entities/customer.entity");
-const user_entity_1 = require("../src/app/users/entities/user.entity");
+const branch_entity_1 = require("@branchs/entities/branch.entity");
+const customer_entity_1 = require("@customers/entities/customer.entity");
+const user_entity_1 = require("@users/entities/user.entity");
 const main_seeder_1 = require("../src/utils/seeds/main.seeder");
 dotenv.config({
     path: process.env.ENV === "test" ? ".env.test" : ".env"

@@ -16,6 +16,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
+    "test:clear": "jest --clearCache",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "pretest:e2e": "cross-env ENV=test npm run clear:db:test && cross-env ENV=test npm run migrate:up",
     "test:e2e": "cross-env ENV=test jest --config ./test/jest-e2e.json",
@@ -42,6 +43,7 @@
     "bcrypt": "^5.1.1",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
+    "module-alias": "^2.2.3",
     "mysql2": "^3.10.1",
     "nodemailer": "^6.9.14",
     "pug": "^3.0.3",
@@ -96,6 +98,32 @@
       "**/*.(t|j)s"
     ],
     "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "moduleNameMapper": {
+      "^@app/(.*)$": "<rootDir>/app/$1",
+      "^@auth/(.*)$": "<rootDir>/app/auth/$1",
+      "^@branchs/(.*)$": "<rootDir>/app/branchs/$1",
+      "^@customers/(.*)$": "<rootDir>/app/customers/$1",
+      "^@users/(.*)$": "<rootDir>/app/users/$1",
+      "^@sellers/(.*)$": "<rootDir>/app/sellers/$1",
+      "^@authGuard/(.*)$": "<rootDir>/guards/auth/$1",
+      "^@roleGuard/(.*)$": "<rootDir>/guards/role/$1",
+      "^@decorators/(.*)$": "<rootDir>/utils/decorators/$1",
+      "^@enums/(.*)$": "<rootDir>/utils/enums/$1",
+      "^@pipes/(.*)$": "<rootDir>/utils/pipes/$1"
+    }
+  },
+  "_moduleAliases": {
+    "@app": "build/src/app",
+    "@auth": "build/src/app/auth",
+    "@branchs": "build/src/app/branchs",
+    "@customers": "build/src/app/customers",
+    "@users": "build/src/app/users",
+    "@sellers": "build/src/app/sellers",
+    "@authGuard": "build/src/guards/auth",
+    "@roleGuard": "build/src/guards/role",
+    "@decorators": "build/src/utils/decorators",
+    "@enums": "build/src/utils/enums",
+    "@pipes": "build/src/utils/pipes"
   }
 }

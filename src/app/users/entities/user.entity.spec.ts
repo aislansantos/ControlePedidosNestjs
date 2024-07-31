@@ -1,11 +1,11 @@
 // src/entities/user.entity.spec.ts
 
+import { Status } from "@enums/active.enum";
+import { Role } from "@enums/role.enum";
 import { Test, TestingModule } from "@nestjs/testing";
 import { getRepositoryToken } from "@nestjs/typeorm";
+import { UserEntity } from "@users/entities/user.entity";
 import { Repository } from "typeorm";
-import { Status } from "../../utils/enums/active.enum";
-import { Role } from "../../utils/enums/role.enum";
-import { UserEntity } from "./user.entity";
 
 export const userEntityList: UserEntity[] = [
 	{

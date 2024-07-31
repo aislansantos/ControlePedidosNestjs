@@ -1,17 +1,17 @@
 import {
-    Body,
-    Controller,
-    Delete,
-    Get,
-    Param,
-    ParseIntPipe,
-    Patch,
-    Post,
-    UseGuards,
-    UsePipes
+	Body,
+	Controller,
+	Delete,
+	Get,
+	Param,
+	ParseIntPipe,
+	Patch,
+	Post,
+	UseGuards,
+	UsePipes
 } from "@nestjs/common";
 import { ApiBearerAuth, ApiConsumes, ApiTags } from "@nestjs/swagger";
-import { AuthGuard } from "../../guards/auth/auth.guard";
+import { AuthGuard } from "@authGuard/auth.guard";
 import { RoleGuard } from "../../guards/role/role.guard";
 import { Roles } from "../../utils/decorators/roles.decorator";
 import { Role } from "../../utils/enums/role.enum";

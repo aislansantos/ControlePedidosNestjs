@@ -1,9 +1,26 @@
 {
-  "moduleFileExtensions": ["js", "json", "ts"],
+  "moduleFileExtensions": [
+    "js",
+    "json",
+    "ts"
+  ],
   "rootDir": ".",
   "testEnvironment": "node",
   "testRegex": ".e2e-spec.ts$",
   "transform": {
     "^.+\\.(t|j)s$": "ts-jest"
-  }
+  },
+ "moduleNameMapper": {
+      "^@app/(.*)$": "<rootDir>../src/app/$1",
+      "^@auth/(.*)$": "<rootDir>../src/app/auth/$1",
+      "^@branchs/(.*)$": "<rootDir>../src/app/branchs/$1",
+      "^@customers/(.*)$": "<rootDir>../src/app/customers/$1",
+      "^@users/(.*)$": "<rootDir>../src/app/users/$1",
+      "^@sellers/(.*)$": "<rootDir>../src/app/sellers/$1",
+      "^@authGuard/(.*)$": "<rootDir>../src/guards/auth/$1",
+      "^@roleGuard/(.*)$": "<rootDir>../src/guards/role/$1",
+      "^@decorators/(.*)$": "<rootDir>../src/utils/decorators/$1",
+      "^@enums/(.*)$": "<rootDir>../src/utils/enums/$1",
+      "^@pipes/(.*)$": "<rootDir>../src/utils/pipes/$1"
+    }
 }

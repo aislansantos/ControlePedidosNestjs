@@ -1,12 +1,12 @@
+import { BranchsService } from "@branchs/branchs.service";
+import { CreateBranchDto } from "@branchs/dto/create-branch.dto";
+import { UpdateBranchDto } from "@branchs/dto/update-branch.dto";
+import { BranchEntity } from "@branchs/entities/branch.entity";
+import { Status } from "@enums/active.enum";
 import { NotFoundException } from "@nestjs/common";
 import { Test, TestingModule } from "@nestjs/testing";
 import { getRepositoryToken } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import { Status } from "../../utils/enums/active.enum";
-import { BranchsService } from "./branchs.service";
-import { CreateBranchDto } from "./dto/create-branch.dto";
-import { UpdateBranchDto } from "./dto/update-branch.dto";
-import { BranchEntity } from "./entities/branch.entity";
 
 const branchsEntityList: BranchEntity[] = [
 	{

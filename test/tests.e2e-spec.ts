@@ -1,13 +1,13 @@
+import { AuthRegisterDto } from "@auth/dto/auth-register.dto";
+import { CreateBranchDto } from "@branchs/dto/create-branch.dto";
+import { UpdateBranchDto } from "@branchs/dto/update-branch.dto";
+import { CreateCustomerDto } from "@customers/dto/create-customer.dto";
+import { UpdateCustomerDto } from "@customers/dto/update-customer.dto";
+import { Role } from "@enums/role.enum";
 import { INestApplication, ValidationPipe } from "@nestjs/common";
 import { Test, TestingModule } from "@nestjs/testing";
 import * as request from "supertest";
 import { AppModule } from "../src/app.module";
-import { AuthRegisterDto } from "../src/auth/dto/auth-register.dto";
-import { CreateBranchDto } from "../src/app/branchs/dto/create-branch.dto";
-import { UpdateBranchDto } from "../src/app/branchs/dto/update-branch.dto";
-import { CreateCustomerDto } from "../src/app/customers/dto/create-customer.dto";
-import { UpdateCustomerDto } from "../src/app/customers/dto/update-customer.dto";
-import { Role } from "../src/utils/enums/role.enum";
 import dataSource from "../typeorm/data-source";
 
 const authRegisterDto: AuthRegisterDto = {

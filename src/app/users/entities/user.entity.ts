@@ -1,3 +1,5 @@
+import { Status } from "@enums/active.enum";
+import { Role } from "@enums/role.enum";
 import {
 	Column,
 	CreateDateColumn,
@@ -5,8 +7,6 @@ import {
 	PrimaryGeneratedColumn,
 	UpdateDateColumn
 } from "typeorm";
-import { Status } from "../../utils/enums/active.enum";
-import { Role } from "../../utils/enums/role.enum";
 
 @Entity({
 	name: "users"

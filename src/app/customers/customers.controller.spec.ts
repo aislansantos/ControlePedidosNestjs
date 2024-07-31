@@ -1,13 +1,13 @@
+import { AuthGuard } from "@authGuard/auth.guard";
+import { CustomersController } from "@customers/customers.controller";
+import { CustomersService } from "@customers/customers.service";
+import { CreateCustomerDto } from "@customers/dto/create-customer.dto";
+import { UpdateCustomerDto } from "@customers/dto/update-customer.dto";
+import { CustomerEntity } from "@customers/entities/customer.entity";
+import { Status } from "@enums/active.enum";
 import { CanActivate, ExecutionContext, Injectable } from "@nestjs/common";
 import { Test, TestingModule } from "@nestjs/testing";
-import { AuthGuard } from "../../guards/auth/auth.guard";
-import { RoleGuard } from "../../guards/role/role.guard";
-import { Status } from "../../utils/enums/active.enum";
-import { CustomersController } from "./customers.controller";
-import { CustomersService } from "./customers.service";
-import { CreateCustomerDto } from "./dto/create-customer.dto";
-import { UpdateCustomerDto } from "./dto/update-customer.dto";
-import { CustomerEntity } from "./entities/customer.entity";
+import { RoleGuard } from "@roleGuard/role.guard";
 
 @Injectable()
 export class AuthGuardMock implements CanActivate {

@@ -1,17 +1,17 @@
+import { AuthService } from "@auth/auth.service";
+import { AuthRegisterDto } from "@auth/dto/auth-register.dto";
+import { Status } from "@enums/active.enum";
+import { Role } from "@enums/role.enum";
 import { MailerService } from "@nestjs-modules/mailer";
 import { BadRequestException, UnauthorizedException } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { Test, TestingModule } from "@nestjs/testing";
 import { getRepositoryToken } from "@nestjs/typeorm";
+import { UpdateUserDto } from "@users/dto/update-user.dto";
+import { UserEntity } from "@users/entities/user.entity";
+import { UsersService } from "@users/users.service";
 import * as bcrypt from "bcrypt";
 import { Repository } from "typeorm";
-import { UpdateUserDto } from "../users/dto/update-user.dto";
-import { UserEntity } from "../users/entities/user.entity";
-import { UsersService } from "../users/users.service";
-import { Status } from "../utils/enums/active.enum";
-import { Role } from "../utils/enums/role.enum";
-import { AuthService } from "./auth.service";
-import { AuthRegisterDto } from "./dto/auth-register.dto";
 
 const accessToken =
 	"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwibmFtZSI6Ikp1Y2EgS2lmdXJpIiwiZW1haWwiOiJqdWNhQGdtYWlsLmNvbSIsImlhdCI6MTcxOTQ5MjcwNCwiZXhwIjoxNzE5NTc5MTA0LCJhdWQiOiJ1c2VyIiwiaXNzIjoibG9naW4iLCJzdWIiOiI1In0.PQHPAK7s6JAA8ydQniT9rcJmmfqf-qKvhAXDYgMP44A";

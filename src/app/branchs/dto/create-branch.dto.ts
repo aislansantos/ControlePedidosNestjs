@@ -1,5 +1,5 @@
 import { IsEnum, IsOptional, IsString } from "class-validator";
-import { Status } from "../../../utils/enums/active.enum";
+import { Status } from "@enums/active.enum";
 
 export class CreateBranchDto {
 	/**

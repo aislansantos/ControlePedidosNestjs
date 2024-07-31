@@ -1,3 +1,4 @@
+import { AuthRegisterDto } from "@auth/dto/auth-register.dto";
 import { MailerService } from "@nestjs-modules/mailer";
 import {
 	BadRequestException,
@@ -6,12 +7,11 @@ import {
 } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { InjectRepository } from "@nestjs/typeorm";
+import { CreateUserDto } from "@users/dto/create-user.dto";
+import { UserEntity } from "@users/entities/user.entity";
+import { UsersService } from "@users/users.service";
 import * as bcrypt from "bcrypt";
 import { Repository } from "typeorm";
-import { UsersService } from "..//users/users.service";
-import { CreateUserDto } from "../users/dto/create-user.dto";
-import { UserEntity } from "../users/entities/user.entity";
-import { AuthRegisterDto } from "./dto/auth-register.dto";
 
 @Injectable()
 export class AuthService {

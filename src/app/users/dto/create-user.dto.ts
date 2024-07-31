@@ -1,3 +1,5 @@
+import { Status } from "@enums/active.enum";
+import { Role } from "@enums/role.enum";
 import {
 	IsDate,
 	IsEmail,
@@ -6,8 +8,6 @@ import {
 	IsString,
 	IsStrongPassword
 } from "class-validator";
-import { Status } from "../../utils/enums/active.enum";
-import { Role } from "../../utils/enums/role.enum";
 
 export class CreateUserDto {
 	/**

@@ -1,3 +1,9 @@
+import { AuthModule } from "@app/auth/auth.module";
+import { UsersModule } from "@app/users/users.module";
+import { BranchsModule } from "@branchs/branchs.module";
+import { BranchEntity } from "@branchs/entities/branch.entity";
+import { CustomersModule } from "@customers/customers.module";
+import { CustomerEntity } from "@customers/entities/customer.entity";
 import { MailerModule } from "@nestjs-modules/mailer";
 import { PugAdapter } from "@nestjs-modules/mailer/dist/adapters/pug.adapter";
 import { Module, forwardRef } from "@nestjs/common";
@@ -5,16 +11,10 @@ import { ConfigModule } from "@nestjs/config";
 import { APP_GUARD } from "@nestjs/core";
 import { ThrottlerGuard, ThrottlerModule } from "@nestjs/throttler";
 import { TypeOrmModule } from "@nestjs/typeorm";
+import { UserEntity } from "@users/entities/user.entity";
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
-import { AuthModule } from "./auth/auth.module";
-import { BranchsModule } from "./app/branchs/branchs.module";
-import { BranchEntity } from "./app/branchs/entities/branch.entity";
-import { CustomersModule } from "./app/customers/customers.module";
-import { CustomerEntity } from "./app/customers/entities/customer.entity";
-import { UserEntity } from "./users/entities/user.entity";
-import { UsersModule } from "./users/users.module";
-import { SellersModule } from './app/sellers/sellers.module';
+import { SellersModule } from "./app/sellers/sellers.module";
 
 @Module({
 	/* 

@@ -1,24 +1,24 @@
+import { AuthGuard } from "@authGuard/auth.guard";
+import { BranchsService } from "@branchs/branchs.service";
+import { CreateBranchDto } from "@branchs/dto/create-branch.dto";
+import { UpdateBranchDto } from "@branchs/dto/update-branch.dto";
+import { Roles } from "@decorators/roles.decorator";
+import { Role } from "@enums/role.enum";
 import {
-    Body,
-    Controller,
-    Delete,
-    Get,
-    Param,
-    ParseIntPipe,
-    Patch,
-    Post,
-    UseGuards,
-    UsePipes
+	Body,
+	Controller,
+	Delete,
+	Get,
+	Param,
+	ParseIntPipe,
+	Patch,
+	Post,
+	UseGuards,
+	UsePipes
 } from "@nestjs/common";
 import { ApiBearerAuth, ApiConsumes, ApiTags } from "@nestjs/swagger";
-import { AuthGuard } from "../../guards/auth/auth.guard";
-import { RoleGuard } from "../../guards/role/role.guard";
-import { Roles } from "../../utils/decorators/roles.decorator";
-import { Role } from "../../utils/enums/role.enum";
-import { UpperCasePipe } from "../../utils/pipes/upperCase.pipe";
-import { BranchsService } from "./branchs.service";
-import { CreateBranchDto } from "./dto/create-branch.dto";
-import { UpdateBranchDto } from "./dto/update-branch.dto";
+import { UpperCasePipe } from "@pipes/upperCase.pipe";
+import { RoleGuard } from "@roleGuard/role.guard";
 
 @ApiTags("Branchs")
 @UseGuards(AuthGuard, RoleGuard)

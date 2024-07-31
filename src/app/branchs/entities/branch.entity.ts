@@ -1,5 +1,5 @@
+import { Status } from "@enums/active.enum";
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-import { Status } from "../../../utils/enums/active.enum";
 
 @Entity({
 	name: "branchs"

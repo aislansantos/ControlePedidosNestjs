@@ -1,13 +1,13 @@
+import { Status } from "@enums/active.enum";
+import { Role } from "@enums/role.enum";
 import { BadGatewayException, NotFoundException } from "@nestjs/common";
 import { Test, TestingModule } from "@nestjs/testing";
 import { getRepositoryToken } from "@nestjs/typeorm";
+import { CreateUserDto } from "@users/dto/create-user.dto";
+import { UpdateUserDto } from "@users/dto/update-user.dto";
+import { UserEntity } from "@users/entities/user.entity";
+import { UsersService } from "@users/users.service";
 import { Repository } from "typeorm";
-import { Status } from "../utils/enums/active.enum";
-import { Role } from "../utils/enums/role.enum";
-import { CreateUserDto } from "./dto/create-user.dto";
-import { UpdateUserDto } from "./dto/update-user.dto";
-import { UserEntity } from "./entities/user.entity";
-import { UsersService } from "./users.service";
 
 const userEntityList: UserEntity[] = [
 	{

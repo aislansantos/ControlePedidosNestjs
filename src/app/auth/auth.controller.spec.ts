@@ -1,15 +1,15 @@
+import { AuthController } from "@auth/auth.controller";
+import { AuthService } from "@auth/auth.service";
+import { AuthForgetDto } from "@auth/dto/auth-forget.dto";
+import { AuthLoginDto } from "@auth/dto/auth-login.dto";
+import { AuthRegisterDto } from "@auth/dto/auth-register.dto";
+import { AuthResetDto } from "@auth/dto/auth-reset.dto";
+import { AuthGuard } from "@authGuard/auth.guard";
+import { Status } from "@enums/active.enum";
+import { Role } from "@enums/role.enum";
 import { CanActivate, ExecutionContext, Injectable } from "@nestjs/common";
 import { Test, TestingModule } from "@nestjs/testing";
-import { AuthGuard } from "../guards/auth/auth.guard";
-import { UserEntity } from "../users/entities/user.entity";
-import { Status } from "../utils/enums/active.enum";
-import { Role } from "../utils/enums/role.enum";
-import { AuthController } from "./auth.controller";
-import { AuthService } from "./auth.service";
-import { AuthForgetDto } from "./dto/auth-forget.dto";
-import { AuthLoginDto } from "./dto/auth-login.dto";
-import { AuthRegisterDto } from "./dto/auth-register.dto";
-import { AuthResetDto } from "./dto/auth-reset.dto";
+import { UserEntity } from "@users/entities/user.entity";
 
 @Injectable()
 export class AuthGuardMock implements CanActivate {

@@ -1,10 +1,10 @@
+import { AuthService } from "@auth/auth.service";
+import { Status } from "@enums/active.enum";
+import { Role } from "@enums/role.enum";
 import { ExecutionContext } from "@nestjs/common/interfaces";
 import { Test, TestingModule } from "@nestjs/testing";
-import { AuthService } from "../../auth/auth.service";
-import { UserEntity } from "../../users/entities/user.entity";
-import { UsersService } from "../../users/users.service";
-import { Status } from "../../utils/enums/active.enum";
-import { Role } from "../../utils/enums/role.enum";
+import { UserEntity } from "@users/entities/user.entity";
+import { UsersService } from "@users/users.service";
 import { AuthGuard } from "./auth.guard";
 
 const accessToken =

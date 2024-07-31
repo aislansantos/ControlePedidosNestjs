@@ -1,9 +1,9 @@
+import { BranchEntity } from "@branchs/entities/branch.entity";
+import { CustomerEntity } from "@customers/entities/customer.entity";
+import { UserEntity } from "@users/entities/user.entity";
 import * as dotenv from "dotenv";
 import { DataSource, DataSourceOptions } from "typeorm";
 import { SeederOptions } from "typeorm-extension";
-import { BranchEntity } from "../src/app/branchs/entities/branch.entity";
-import { CustomerEntity } from "../src/app/customers/entities/customer.entity";
-import { UserEntity } from "../src/app/users/entities/user.entity";
 import { MainSeeder } from "../src/utils/seeds/main.seeder";
 
 dotenv.config({

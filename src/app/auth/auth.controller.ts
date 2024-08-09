@@ -1,8 +1,8 @@
 import { Body, Controller, Post, UseGuards } from "@nestjs/common";
 import { ApiBearerAuth, ApiConsumes, ApiTags } from "@nestjs/swagger";
-import { AuthGuard } from "../guards/auth/auth.guard";
+import { AuthGuard } from "../../guards/auth/auth.guard";
 import { UserEntity } from "../users/entities/user.entity";
-import { User } from "../utils/decorators/user.decorator";
+import { User } from "../../utils/decorators/user.decorator";
 import { AuthService } from "./auth.service";
 import { AuthForgetDto } from "./dto/auth-forget.dto";
 import { AuthLoginDto } from "./dto/auth-login.dto";

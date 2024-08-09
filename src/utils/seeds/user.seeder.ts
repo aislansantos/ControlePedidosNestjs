@@ -3,7 +3,7 @@
 import * as bcrypt from "bcrypt";
 import { DataSource } from "typeorm";
 import { Seeder, SeederFactoryManager } from "typeorm-extension";
-import { UserEntity } from "../../users/entities/user.entity";
+import { UserEntity } from "../../app/users/entities/user.entity";
 
 export class UserSeeder implements Seeder {
 	async run(

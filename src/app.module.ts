@@ -7,14 +7,14 @@ import { ThrottlerGuard, ThrottlerModule } from "@nestjs/throttler";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
-import { AuthModule } from "./auth/auth.module";
+import { AuthModule } from "./app/auth/auth.module";
 import { BranchsModule } from "./app/branchs/branchs.module";
 import { BranchEntity } from "./app/branchs/entities/branch.entity";
 import { CustomersModule } from "./app/customers/customers.module";
 import { CustomerEntity } from "./app/customers/entities/customer.entity";
-import { UserEntity } from "./users/entities/user.entity";
-import { UsersModule } from "./users/users.module";
-import { SellersModule } from './app/sellers/sellers.module';
+import { SellersModule } from "./app/sellers/sellers.module";
+import { UserEntity } from "./app/users/entities/user.entity";
+import { UsersModule } from "./app/users/users.module";
 
 @Module({
 	/* 

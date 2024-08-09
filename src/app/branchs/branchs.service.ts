@@ -23,7 +23,10 @@ export class BranchsService {
 
 	public async findOne(id: number) {
 		await this.exists(id);
-		return await this.branchRepository.findOne({ where: { id } });
+		return await this.branchRepository.findOne({
+			relations: { sellers: true },
+			where: { id }
+		});
 	}
 
 	public async update(id: number, updateBranchDto: UpdateBranchDto) {

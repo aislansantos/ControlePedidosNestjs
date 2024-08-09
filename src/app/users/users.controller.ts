@@ -46,7 +46,7 @@ export class UsersController {
 	@ApiConsumes("application/json")
 	@Get(":id")
 	public async findOne(@Param("id", ParseIntPipe) id: number) {
-		return await this.usersService.findOne(+id);
+		return await this.usersService.findOne(id);
 	}
 
 	@Roles(Role.Admin)
@@ -65,6 +65,6 @@ export class UsersController {
 	@ApiConsumes("application/json")
 	@Delete(":id")
 	public async remove(@Param("id", ParseIntPipe) id: number) {
-		return await this.usersService.remove(+id);
+		return await this.usersService.remove(id);
 	}
 }

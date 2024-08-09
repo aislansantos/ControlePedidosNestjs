@@ -1,5 +1,5 @@
 import {
-	BadGatewayException,
+	BadRequestException,
 	Injectable,
 	NotFoundException
 } from "@nestjs/common";
@@ -25,7 +25,7 @@ export class UsersService {
 				}
 			})
 		)
-			throw new BadGatewayException("Este e-mail já existe.");
+			throw new BadRequestException("Este e-mail já existe.");
 
 		const salt = await bcrypt.genSalt();
 		data.password = await bcrypt.hash(data.password, salt);

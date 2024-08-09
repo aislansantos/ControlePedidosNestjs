@@ -11,6 +11,7 @@ export class AuthGuard implements CanActivate {
 
 	public async canActivate(context: ExecutionContext) {
 		const request = context.switchToHttp().getRequest();
+
 		const { authorization } = request.headers;
 
 		try {

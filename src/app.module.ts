@@ -15,6 +15,7 @@ import { CustomerEntity } from "./app/customers/entities/customer.entity";
 import { SellersModule } from "./app/sellers/sellers.module";
 import { UserEntity } from "./app/users/entities/user.entity";
 import { UsersModule } from "./app/users/users.module";
+import { SellerEntity } from "./app/sellers/entities/seller.entity";
 
 @Module({
 	/* 
@@ -45,7 +46,7 @@ import { UsersModule } from "./app/users/users.module";
 			username: process.env.DB_USERNAME,
 			password: process.env.DB_PASSWORD,
 			database: process.env.DB_DATABASE,
-			entities: [UserEntity, CustomerEntity, BranchEntity],
+			entities: [UserEntity, CustomerEntity, BranchEntity, SellerEntity],
 			synchronize:
 				process.env.ENV === "development" || process.env.ENV === "test",
 			charset: "utf8mb4_unicode_ci", // Ajuste a codificação de acordo com o seu banco de dados

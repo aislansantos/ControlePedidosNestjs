@@ -1,5 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Status } from "../../../utils/enums/active.enum";
+import { SellerEntity } from "../../sellers/entities/seller.entity";
 
 @Entity({
 	name: "branchs"
@@ -39,4 +40,7 @@ export class BranchEntity {
 		default: Status.active
 	})
 	status?: number;
+
+	@OneToMany(() => SellerEntity, (seller) => seller.branch)
+	sellers: SellerEntity[];
 }

@@ -28,6 +28,16 @@ export class Migrate1721851889105 implements MigrationInterface {
 						name: "status",
 						type: "int",
 						default: 1
+					},
+					{
+						name: "createdAt",
+						type: "timestamp",
+						default: "CURRENT_TIMESTAMP()"
+					},
+					{
+						name: "updatedAt",
+						type: "timestamp",
+						default: "CURRENT_TIMESTAMP()"
 					}
 				]
 			})

@@ -31,7 +31,7 @@ export class Migrate1718732352964 implements MigrationInterface {
 						length: "127"
 					},
 					{
-						name: "birthDate",
+						name: "birth_date",
 						type: "date",
 						isNullable: true
 					},
@@ -46,12 +46,12 @@ export class Migrate1718732352964 implements MigrationInterface {
 						default: "1"
 					},
 					{
-						name: "createdAt",
+						name: "created_at",
 						type: "timestamp",
 						default: "CURRENT_TIMESTAMP()"
 					},
 					{
-						name: "updatedAt",
+						name: "updated_at",
 						type: "timestamp",
 						default: "CURRENT_TIMESTAMP()"
 					}

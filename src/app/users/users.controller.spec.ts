@@ -1,9 +1,9 @@
 import { CanActivate, ExecutionContext, Injectable } from "@nestjs/common";
 import { Test, TestingModule } from "@nestjs/testing";
-import { AuthGuard } from "../guards/auth/auth.guard";
-import { RoleGuard } from "../guards/role/role.guard";
-import { Status } from "../utils/enums/active.enum";
-import { Role } from "../utils/enums/role.enum";
+import { AuthGuard } from "../../guards/auth/auth.guard";
+import { RoleGuard } from "../../guards/role/role.guard";
+import { Status } from "../../utils/enums/active.enum";
+import { Role } from "../../utils/enums/role.enum";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
 import { UserEntity } from "./entities/user.entity";

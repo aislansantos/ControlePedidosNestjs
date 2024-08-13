@@ -12,10 +12,11 @@ import { BranchsModule } from "./app/branchs/branchs.module";
 import { BranchEntity } from "./app/branchs/entities/branch.entity";
 import { CustomersModule } from "./app/customers/customers.module";
 import { CustomerEntity } from "./app/customers/entities/customer.entity";
+import { SellerEntity } from "./app/sellers/entities/seller.entity";
 import { SellersModule } from "./app/sellers/sellers.module";
 import { UserEntity } from "./app/users/entities/user.entity";
 import { UsersModule } from "./app/users/users.module";
-import { SellerEntity } from "./app/sellers/entities/seller.entity";
+import { ProductsModule } from "./products/products.module";
 
 @Module({
 	/* 
@@ -75,7 +76,8 @@ import { SellerEntity } from "./app/sellers/entities/seller.entity";
 			}
 		}),
 		BranchsModule,
-		SellersModule
+		SellersModule,
+		ProductsModule
 	],
 	controllers: [AppController],
 	// Aqui protegempos toda a aplicação de tentativas seguida de acesso, podemos colocar como um guard em uma rota especifica

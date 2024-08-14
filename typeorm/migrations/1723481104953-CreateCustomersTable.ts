@@ -16,19 +16,19 @@ export class CreateCustomersTable1723481104953 implements MigrationInterface {
 					},
 					{
 						name: "name",
-						type: "string",
+						type: "varchar",
 						length: "127",
 						isNullable: false
 					},
 					{
 						name: "email",
-						type: "string",
+						type: "varchar",
 						length: "127",
 						isNullable: false
 					},
 					{
 						name: "telephone",
-						type: "string",
+						type: "varchar",
 						length: "15",
 						isNullable: false
 					},
@@ -39,25 +39,25 @@ export class CreateCustomersTable1723481104953 implements MigrationInterface {
 					},
 					{
 						name: "address",
-						type: "string",
+						type: "varchar",
 						length: "127",
 						isNullable: false
 					},
 					{
 						name: "neighborhood",
-						type: "string",
+						type: "varchar",
 						length: "127",
 						isNullable: false
 					},
 					{
 						name: "city",
-						type: "string",
+						type: "varchar",
 						length: "127",
 						isNullable: false
 					},
 					{
 						name: "state",
-						type: "string",
+						type: "varchar",
 						length: "2",
 						isNullable: false
 					},

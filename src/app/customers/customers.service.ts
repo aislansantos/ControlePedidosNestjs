@@ -46,7 +46,7 @@ export class CustomersService {
 				where: { id }
 			}))
 		) {
-			throw new NotFoundException(`O cliente com o id ${id} não existe`);
+			throw new NotFoundException(`O cliente com o id ${id} não existe.`);
 		}
 	}
 }

@@ -12,6 +12,8 @@ import { BranchsModule } from "./app/branchs/branchs.module";
 import { BranchEntity } from "./app/branchs/entities/branch.entity";
 import { CustomersModule } from "./app/customers/customers.module";
 import { CustomerEntity } from "./app/customers/entities/customer.entity";
+import { ProductEntity } from "./app/products/entities/product.entity";
+import { ProductsModule } from "./app/products/products.module";
 import { SellerEntity } from "./app/sellers/entities/seller.entity";
 import { SellersModule } from "./app/sellers/sellers.module";
 import { UserEntity } from "./app/users/entities/user.entity";
@@ -46,7 +48,13 @@ import { UsersModule } from "./app/users/users.module";
 			username: process.env.DB_USERNAME,
 			password: process.env.DB_PASSWORD,
 			database: process.env.DB_DATABASE,
-			entities: [UserEntity, CustomerEntity, BranchEntity, SellerEntity],
+			entities: [
+				UserEntity,
+				CustomerEntity,
+				BranchEntity,
+				SellerEntity,
+				ProductEntity
+			],
 			synchronize:
 				process.env.ENV === "development" || process.env.ENV === "test",
 			charset: "utf8mb4_unicode_ci", // Ajuste a codificação de acordo com o seu banco de dados
@@ -75,7 +83,8 @@ import { UsersModule } from "./app/users/users.module";
 			}
 		}),
 		BranchsModule,
-		SellersModule
+		SellersModule,
+		ProductsModule
 	],
 	controllers: [AppController],
 	// Aqui protegempos toda a aplicação de tentativas seguida de acesso, podemos colocar como um guard em uma rota especifica

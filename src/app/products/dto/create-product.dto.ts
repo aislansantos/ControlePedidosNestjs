@@ -1,5 +1,5 @@
 import { IsEnum, IsInt, IsNumber, IsOptional, IsString } from "class-validator";
-import { Status } from "../../utils/enums/active.enum";
+import { Status } from "../../../utils/enums/active.enum";
 
 export class CreateProductDto {
 	@IsString()

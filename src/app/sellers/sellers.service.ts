@@ -30,7 +30,23 @@ export class SellersService {
 	}
 
 	public async findAll() {
-		return await this.sellersRepository.find({ relations: { branch: true } });
+		const seller = await this.sellersRepository.find({
+			relations: { branch: true }
+		});
+
+		console.log(seller);
+
+		const sellerRetuned = seller.map((seller) => ({
+			id: seller.id,
+			name: seller.name,
+			id_branch: seller.id_branch,
+			branch: seller.branch.description,
+			status: seller.status,
+			createdAt: seller.createdAt,
+			updatedAt: seller.updatedAt
+		}));
+
+		return sellerRetuned;
 	}
 
 	public async findOne(id: number) {

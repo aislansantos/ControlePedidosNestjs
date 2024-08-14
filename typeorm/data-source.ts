@@ -3,6 +3,7 @@ import { DataSource, DataSourceOptions } from "typeorm";
 import { SeederOptions } from "typeorm-extension";
 import { BranchEntity } from "../src/app/branchs/entities/branch.entity";
 import { CustomerEntity } from "../src/app/customers/entities/customer.entity";
+import { ProductEntity } from "../src/app/products/entities/product.entity";
 import { SellerEntity } from "../src/app/sellers/entities/seller.entity";
 import { UserEntity } from "../src/app/users/entities/user.entity";
 import { MainSeeder } from "../src/utils/seeds/main.seeder";
@@ -22,7 +23,13 @@ const options: DataSourceOptions & SeederOptions = {
 	username: process.env.DB_USERNAME,
 	password: process.env.DB_PASSWORD,
 	database: process.env.DB_DATABASE,
-	entities: [UserEntity, CustomerEntity, BranchEntity, SellerEntity],
+	entities: [
+		UserEntity,
+		CustomerEntity,
+		BranchEntity,
+		SellerEntity,
+		ProductEntity
+	],
 	migrations: [`${__dirname}/migrations/**/*.ts`],
 	// Precisamos somente da mainSeed que ja está fazendo a gestão das seeds.
 	seeds: [MainSeeder]

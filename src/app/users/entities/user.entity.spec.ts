@@ -3,8 +3,8 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { getRepositoryToken } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import { Status } from "../../utils/enums/active.enum";
-import { Role } from "../../utils/enums/role.enum";
+import { Status } from "../../../utils/enums/active.enum";
+import { Role } from "../../../utils/enums/role.enum";
 import { UserEntity } from "./user.entity";
 
 export const userEntityList: UserEntity[] = [

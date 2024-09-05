@@ -1,9 +1,9 @@
 import {
-    Column,
-    CreateDateColumn,
-    Entity,
-    PrimaryGeneratedColumn,
-    UpdateDateColumn
+	Column,
+	CreateDateColumn,
+	Entity,
+	PrimaryGeneratedColumn,
+	UpdateDateColumn
 } from "typeorm";
 import { Status } from "../../../utils/enums/active.enum";
 
@@ -99,17 +99,17 @@ export class CustomerEntity {
 		type: "date",
 		nullable: true
 	})
-	birthDate?: string;
+	birth_date?: string;
 
 	/**
 	 * Campo não preenchido - gerado automaticamente pelo sistema quando o registro é criado.
 	 */
 	@CreateDateColumn()
-	createdAt?: Date;
+	created_at?: Date;
 
 	/**
 	 * Campo não preenchido - gerado automaticamente pelo sistema quando o registro alterado.
 	 */
 	@UpdateDateColumn()
-	updatedAt?: Date;
+	updated_at?: Date;
 }

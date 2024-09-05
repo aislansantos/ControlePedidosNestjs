@@ -66,5 +66,5 @@ export class CreateCustomerDto {
 	 */
 	@IsOptional()
 	@Validate({ message: "Invalid Date" })
-	birthDate?: string;
+	birth_date?: string;
 }

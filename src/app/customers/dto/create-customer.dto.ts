@@ -4,7 +4,7 @@ import { Status } from "../../../utils/enums/active.enum";
 
 export class CreateCustomerDto {
 	/**
-	 * Campo obrigatório -  usado para o identificação do usuário.
+	 * Campo obrigatório -  usado para o identificação do cliente.
 	 * @example Fulano de Tal
 	 */
 	@IsString()

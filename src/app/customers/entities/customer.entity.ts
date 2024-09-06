@@ -21,7 +21,7 @@ export class CustomerEntity {
 	id?: number;
 
 	/**
-	 * Campo obrigatório -  usado para o identificação do usuário.
+	 * Campo obrigatório -  usado para o identificação do cliente.
 	 * @example Fulano de Tal
 	 */
 	@Column({
@@ -30,7 +30,7 @@ export class CustomerEntity {
 	name: string;
 
 	/**
-	 * Campo obrigatório -  usado para o login e forget de senha.
+	 * Campo obrigatório -  usado para cominucação com o cliente.
 	 * @example teste@teste.com.br
 	 */
 	@Column({

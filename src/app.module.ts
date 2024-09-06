@@ -16,6 +16,7 @@ import { ProductEntity } from "./app/products/entities/product.entity";
 import { ProductsModule } from "./app/products/products.module";
 import { SellerEntity } from "./app/sellers/entities/seller.entity";
 import { SellersModule } from "./app/sellers/sellers.module";
+import { SuppliersModule } from "./app/suppliers/suppliers.module";
 import { UserEntity } from "./app/users/entities/user.entity";
 import { UsersModule } from "./app/users/users.module";
 
@@ -84,7 +85,8 @@ import { UsersModule } from "./app/users/users.module";
 		}),
 		BranchsModule,
 		SellersModule,
-		ProductsModule
+		ProductsModule,
+		SuppliersModule
 	],
 	controllers: [AppController],
 	// Aqui protegempos toda a aplicação de tentativas seguida de acesso, podemos colocar como um guard em uma rota especifica
